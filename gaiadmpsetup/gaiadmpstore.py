@@ -10,17 +10,17 @@ data_store = "file:////data/gaia/"  # "file:////user/nch/PARQUET/REPARTITIONED/"
 default_key = "source_id"
 
 # Save a dataframe to a set of bucketed parquet files, repartitioning beforehand and sorting (by default by source UID) within the buckets:
-def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", nBuckets = NUM_BUCKETS, bucket_and_sort_key = default_key):
-    df = df.repartition(nBuckets, bucket_and_sort_key)
+def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", buckets = NUM_BUCKETS, bucket_and_sort_key = default_key):
+    df = df.repartition(buckets, bucket_and_sort_key)
     df.write.format("parquet") \
             .mode(mode) \
-            .bucketBy(nBuckets, bucket_and_sort_key) \
+            .bucketBy(buckets, bucket_and_sort_key) \
             .sortBy(bucket_and_sort_key) \
             .option("path", outputParquetPath) \
             .saveAsTable(name)
 
 # and to re-establish the resource in a new (or reset) spark context:
-def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures, cluster_key = default_key, sort_key = default_key):
+def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures, cluster_key = default_key, sort_key = default_key, buckets = NUM_BUCKETS):
 	"""
 	Creates a Spark (in-memory) meta-record for the table resource specified for querying
 	through the PySpark SQL API.
@@ -45,6 +45,8 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_str
 	sort_key : str (optional)
 	    The sorting key within buckets in the partitioned data set on disk. 
 	    Default is Gaia catalogue source UID (= source_id).
+	buckets : int (optional)
+	    Number of buckets into which the data is organised.
 	"""
 
 	# put in the columns and their data types ...
@@ -58,7 +60,7 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_str
 	# append the organisational details
 	table_create_statement += ") USING parquet OPTIONS (path '" + file_path + "') "
 	table_create_statement += "CLUSTERED BY (%s) SORTED BY (%s) INTO %d" % (
-		cluster_key, sort_key, NUM_BUCKETS) + " BUCKETS"
+		cluster_key, sort_key, buckets) + " BUCKETS"
 
 
 	# scrub any existing record - N.B. tables defined in this way are EXTERNAL, so this statement will not scrub
