@@ -6,13 +6,26 @@ spark = SparkSession.builder.getOrCreate()
 # root data store path: TODO change this to the official one when established.
 data_store = "file:////data/gaia/"  # "file:////user/nch/PARQUET/REPARTITIONED/"
 
+# default key by which to bucket and sort: Gaia catalogue source UID 
+default_key = "source_id"
+
+# Save a dataframe to a set of bucketed parquet files, repartitioning beforehand and sorting (by default by source UID) within the buckets:
+def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", nBuckets = NUM_BUCKETS, bucket_and_sort_key = default_key):
+    df = df.repartition(nBuckets, bucket_and_sort_key)
+    df.write.format("parquet") \
+            .mode(mode) \
+            .bucketBy(nBuckets, bucket_and_sort_key) \
+            .sortBy(bucket_and_sort_key) \
+            .option("path", outputParquetPath) \
+            .saveAsTable(name)
+
 # and to re-establish the resource in a new (or reset) spark context:
-def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures):
+def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures, cluster_key = default_key, sort_key = default_key):
 	"""
 	Creates a Spark (in-memory) meta-record for the table resource specified for querying
 	through the PySpark SQL API.
 
-	Assumes that the table contains the Gaia source_id attribute and that the files have
+	Default assumption is that the table contains the Gaia source_id attribute and that the files have
 	been previously partitioned, bucketed and sorted on this field in parquet format
 	- see function saveToBinnedParquet().  If the table name specified already exists in the
 	catalogue IT WILL BE REMOVED (but the underlying data, assumed external, will remain).
@@ -26,6 +39,12 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_str
 	schema_structures : StructType
 		One or more schema structures expressed as a StructType object containing a list of
 		StructField(field_name : str, type : data_type : DataType(), nullable : boolean)
+	cluster_key : str (optional)
+	    The clustering key (= bucketing and sort key) in the partitioned data set on disk. 
+	    Default is Gaia catalogue source UID (= source_id).
+	sort_key : str (optional)
+	    The sorting key within buckets in the partitioned data set on disk. 
+	    Default is Gaia catalogue source UID (= source_id).
 	"""
 
 	# put in the columns and their data types ...
@@ -38,8 +57,8 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_str
 
 	# append the organisational details
 	table_create_statement += ") USING parquet OPTIONS (path '" + file_path + "') "
-	table_create_statement += "CLUSTERED BY (source_id) SORTED BY (source_id) INTO %d" % (
-		NUM_BUCKETS) + " BUCKETS"
+	table_create_statement += "CLUSTERED BY (%s) SORTED BY (%s) INTO %d" % (
+		cluster_key, sort_key, NUM_BUCKETS) + " BUCKETS"
 
 
 	# scrub any existing record - N.B. tables defined in this way are EXTERNAL, so this statement will not scrub
