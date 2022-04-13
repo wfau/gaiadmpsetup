@@ -6,7 +6,7 @@ from pyspark.sql import *
 # number of buckets for our platform
 NUM_BUCKETS = 2048
 
-spark = SparkSession.builder.getOrCreate()  REINSTATE !!!!!!!!!!!!!!!!!!!!!!!!!!!
+spark = SparkSession.builder.getOrCreate()
 
 # root data store path: TODO change this to the official one when established.
 data_store = "file:////data/gaia/"  # "file:////user/nch/PARQUET/REPARTITIONED/"
