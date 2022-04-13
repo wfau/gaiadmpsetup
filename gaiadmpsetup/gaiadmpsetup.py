@@ -1,8 +1,8 @@
 from pyspark.sql.types import *
 from pyspark.sql.session import SparkSession
 
-from gaiaedr3-pyspark-schema-structures import *
-from gaiadr3-pyspark-schema-structures import *
+import gaiaedr3_pyspark_schema_structures as edr3
+import gaiadr3_pyspark_schema_structures as dr3
 from gaiadmpstore import *
 
 spark = SparkSession.builder.getOrCreate()
@@ -20,7 +20,7 @@ class GaiaDMPSetup:
 
         def tablesExist():
             actual_tables = [i.name for i in spark.catalog.listTables()]
-            expected_tables = gaiaedr3_tables # + gaiadr3_tables TODO add in DR3 tables expected once loaded
+            expected_tables = edr3.table_dict.keys() # | dr3.table_dict.keys() TODO add in DR3 tables expected once loaded
             check =  all(item in actual_tables for item in expected_tables)
             return check
 
@@ -34,16 +34,10 @@ class GaiaDMPSetup:
             spark.sql("use " + database)
 
             # create the tables against their corresponding file sets and schema
-            reattachParquetFileResourceToSparkContext("gaia_source", data_store + "GEDR3/GEDR3_GAIASOURCE", gaia_source_schema)
-            reattachParquetFileResourceToSparkContext("gaia_source_tmasspsc_best_neighbours",
-                                                  data_store + "GEDR3/GEDR3_2MASSPSC_BEST_NEIGHBOURS",
-                                                  tmasspscxsc_best_neighbour_schema, twomass_psc_schema)
-            reattachParquetFileResourceToSparkContext("gaia_source_allwise_best_neighbours",
-                                                  data_store + "GEDR3/GEDR3_ALLWISE_BEST_NEIGHBOURS",
-                                                  allwise_best_neighbour_schema, twomass_psc_schema)
-            reattachParquetFileResourceToSparkContext("gaia_source_ps1_best_neighbours",
-                                                  data_store + "GEDR3/GEDR3_PS1_BEST_NEIGHBOURS",
-                                                  panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema)
+            for table_key in edr3.table_dict.keys():
+                folder_path = edr3.table_dict[table_key][0]
+                schema = edr3.table_dict[table_key][1]
+                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, *schema)
                                                   
             # ... similarly for Gaia DR3
             database = "gaiadr3"
@@ -51,7 +45,10 @@ class GaiaDMPSetup:
             spark.sql("use " + database)
             
             # TODO create the tables against their corresponding file sets and schema            
-
+            #for table_key in dr3.table_dict.keys():
+            #    folder_path = dr3.table_dict[table_key][0]
+            #    schema = dr3.table_dict[table_key][1]
+            #    reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, *schema)
 
 
 GaiaDMPSetup.setup()

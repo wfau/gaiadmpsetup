@@ -1,7 +1,12 @@
+from pyspark.sql.types import *
+from pyspark.sql import functions as f
+from pyspark.sql import *
+
+
 # number of buckets for our platform
 NUM_BUCKETS = 2048
 
-spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.getOrCreate()  REINSTATE !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # root data store path: TODO change this to the official one when established.
 data_store = "file:////data/gaia/"  # "file:////user/nch/PARQUET/REPARTITIONED/"
@@ -11,6 +16,24 @@ default_key = "source_id"
 
 # Save a dataframe to a set of bucketed parquet files, repartitioning beforehand and sorting (by default by source UID) within the buckets:
 def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", buckets = NUM_BUCKETS, bucket_and_sort_key = default_key):
+    '''
+    Save a data frame to a set of bucketed parquet files, repartitioning beforehand and sorting
+    (by default on DPAC Gaia source UID) within the buckets.
+    
+    Parameters
+    ----------
+    df : DataFrame
+        (mandatory) the data frame to be written to the persistent file store
+    outputParquetPath : str
+        (mandatory) the absolute path name of the folder to contain the files
+    mode : str
+        (optional) the mode for the underlying DataFrame write method (default : error, i.e. no silent failures)
+    buckets : int
+        (optional) the number of buckets (if in doubt leave as the default)
+    bucket_and_sort_key : str
+        (optional) the bucketing and sorting key for the keyed/clustered data (default source_id; you must specify
+        an alternative if the data frame does not have this column present)
+    '''
     df = df.repartition(buckets, bucket_and_sort_key)
     df.write.format("parquet") \
             .mode(mode) \
@@ -19,7 +42,6 @@ def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", buckets = N
             .option("path", outputParquetPath) \
             .saveAsTable(name)
 
-# and to re-establish the resource in a new (or reset) spark context:
 def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures, cluster_key = default_key, sort_key = default_key, buckets = NUM_BUCKETS):
 	"""
 	Creates a Spark (in-memory) meta-record for the table resource specified for querying
@@ -70,3 +92,115 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_str
 
 	# create the table resource
 	spark.sql(table_create_statement)
+
+def create_interim_schema_for_csv(schema_structure):
+    '''
+    Takes a schema StructType() and substitutes all array types as a string in order
+    to create a schema against which csv files can be read into an interim data frame
+    prior to conversion of the comma-separated string of numerical values into an array
+    of the appropriate numeric type.
+    
+    Parameters
+    ----------
+    schema_structure : StructType
+        the table schema containing array types 
+        
+    Returns: StructType
+    -------------------
+    An edited version of the given schema with all ArrayType changed to StringType
+    '''
+    
+    # new interim structure
+    interim_structure = StructType()
+    
+    # iterate over the schema, copying in everything and substituting strings for any arrays
+    for field in schema_structure:
+        if type(field.dataType) == ArrayType: field.dataType = StringType()
+        interim_structure.add(field)
+    
+    return interim_structure
+
+def cast_to_array(data_frame : DataFrame, column_name : str, data_type : DataType):
+    """
+    Casts the specified string column in the given data frame into an
+    array with the specified data type. Assumes the string column contains
+    comma-separated values in plain text delimited by braces (which are
+    ignored). The array column is appended to the existing column set while 
+    the original string column is removed. The resulting data frame will
+    contain an array column with the same name as the original string
+    data column.
+    
+    Parameters:
+    -----------
+    data_frame : DataFrame()
+        The PySpark data frame instance to be operated on
+    column_name : str
+        The column name that contains the array data as a plain text string of 
+        comma-separated values
+    data_type : DataType()
+        The PySpark data structure data type which should be ArrayType(SomeType())
+        
+    Returns:
+    --------
+    a new data frame containing the requested modification
+    """
+    
+    # a temporary working column name for the array
+    temporary_column_name = column_name + '_array_data'
+    
+    # reformat the string csv data as an array of the specified type
+    data_frame = data_frame.withColumn(temporary_column_name, f.split(f.col(column_name).substr(f.lit(2), f.length(f.col(column_name)) - 2), ',').cast(data_type))
+    
+    # drop the original string column to save space
+    data_frame = data_frame.drop(column_name)
+    
+    # rename the temporary column with the original column name
+    data_frame = data_frame.withColumnRenamed(temporary_column_name, column_name)
+    
+    return data_frame
+    
+    
+def reorder_columns(data_frame : DataFrame, data_structure : StructType):
+    """
+    Reorder the columns according to the Gaia archive public schema and so that
+    the parquet files can be re-attached against that standard schema.
+    
+    Parameters:
+    -----------
+    data_frame : DataFrame()
+        The PySpark data frame instance to be operated on
+    data_structure : StructType()
+        The PySpark data structure containing the required schema definition
+    """
+    
+    # use the schema to define the column order
+    ordered_columns = [field.name for field in data_structure]
+    
+    # give it back in the schema-driven order
+    return data_frame.select(ordered_columns)
+    
+
+def cast_all_arrays(data_frame : DataFrame, data_structure : StructType):
+    """
+    Given an interim data frame read from csv and containing arrays in
+    plain text string representation, cycles over the schema transforming
+    all strings associated with arrays into the required primitive type.
+    
+    Parameters:
+    -----------
+    data_frame : DataFrame()
+        The PySpark data frame instance to be operated on
+    data_structure : StructType()
+        The PySpark data structure containing the required schema definition
+    """
+    
+    # cycle over the defined fields looking for arrays
+    for field in data_structure:
+        
+        # if it's an array type then transmogrify:
+        if type(field.dataType) == ArrayType: 
+            data_frame = cast_to_array(data_frame, field.name, field.dataType)
+    
+    # finally reorder according to the original specification
+    return reorder_columns(data_frame, data_structure)
+    
