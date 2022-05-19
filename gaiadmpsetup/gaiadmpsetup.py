@@ -3,7 +3,7 @@ from pyspark.sql.session import SparkSession
 
 from . import gaiaedr3_pyspark_schema_structures as edr3
 from . import gaiadr3_pyspark_schema_structures as dr3
-from gaiadmpstore import *
+from .gaiadmpstore import *
 
 spark = SparkSession.builder.getOrCreate()
 
