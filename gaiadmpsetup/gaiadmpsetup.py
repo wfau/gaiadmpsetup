@@ -32,7 +32,7 @@ class GaiaDMPSetup:
             spark.sql("create database " + database)
             spark.sql("use " + database)
 
-            # create the tables against their corresponding file sets and schea
+            # create the tables against their corresponding file sets and schema
             for table_key in edr3.table_dict.keys():
                 folder_path = edr3.table_dict[table_key][1]
                 schemas = edr3.table_dict[table_key][0]
