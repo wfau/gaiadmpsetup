@@ -1,8 +1,8 @@
 from pyspark.sql.types import *
 from pyspark.sql.session import SparkSession
 
-import gaiaedr3_pyspark_schema_structures as edr3
-import gaiadr3_pyspark_schema_structures as dr3
+from . import gaiaedr3_pyspark_schema_structures as edr3
+from . import gaiadr3_pyspark_schema_structures as dr3
 from gaiadmpstore import *
 
 spark = SparkSession.builder.getOrCreate()
