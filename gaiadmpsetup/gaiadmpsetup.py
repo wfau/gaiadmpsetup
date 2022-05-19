@@ -25,7 +25,6 @@ class GaiaDMPSetup:
             return check
 
         if not tablesExist():
-        
             # database name to create
             database = "gaiaedr3"
 
@@ -33,17 +32,17 @@ class GaiaDMPSetup:
             spark.sql("create database " + database)
             spark.sql("use " + database)
 
-            # create the tables against their corresponding file sets and schema
+            # create the tables against their corresponding file sets and schea
             for table_key in edr3.table_dict.keys():
                 folder_path = edr3.table_dict[table_key][1]
-                schema = edr3.table_dict[table_key][0]
-                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, *schema)
-                                                  
+                schemas = edr3.table_dict[table_key][0]
+                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas)
+
             # ... similarly for Gaia DR3
             database = "gaiadr3"
             spark.sql("create database " + database)
             spark.sql("use " + database)
-            
+
             # TODO create the tables against their corresponding file sets and schema            
             #for table_key in dr3.table_dict.keys():
             #    folder_path = dr3.table_dict[table_key][0]
@@ -52,3 +51,4 @@ class GaiaDMPSetup:
 
 
 GaiaDMPSetup.setup()
+

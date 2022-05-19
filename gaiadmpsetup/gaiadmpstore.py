@@ -42,7 +42,7 @@ def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", buckets = N
             .option("path", outputParquetPath) \
             .saveAsTable(name)
 
-def reattachParquetFileResourceToSparkContext(table_name, file_path, *schema_structures, cluster_key = default_key, sort_key = default_key, buckets = NUM_BUCKETS):
+def reattachParquetFileResourceToSparkContext(table_name, file_path, schema_structures, cluster_key = default_key, sort_key = default_key, buckets = NUM_BUCKETS):
 	"""
 	Creates a Spark (in-memory) meta-record for the table resource specified for querying
 	through the PySpark SQL API.
@@ -204,3 +204,4 @@ def cast_all_arrays(data_frame : DataFrame, data_structure : StructType):
     # finally reorder according to the original specification
     return reorder_columns(data_frame, data_structure)
     
+
