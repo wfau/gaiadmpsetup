@@ -35,8 +35,8 @@ class GaiaDMPSetup:
 
             # create the tables against their corresponding file sets and schema
             for table_key in edr3.table_dict.keys():
-                folder_path = edr3.table_dict[table_key][0]
-                schema = edr3.table_dict[table_key][1]
+                folder_path = edr3.table_dict[table_key][1]
+                schema = edr3.table_dict[table_key][0]
                 reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, *schema)
                                                   
             # ... similarly for Gaia DR3
