@@ -1,9 +1,9 @@
 from pyspark.sql.types import *
 from pyspark.sql.session import SparkSession
 
-import gaiaedr3_pyspark_schema_structures as edr3
-import gaiadr3_pyspark_schema_structures as dr3
-from gaiadmpstore import *
+from . import gaiaedr3_pyspark_schema_structures as edr3
+from . import gaiadr3_pyspark_schema_structures as dr3
+from .gaiadmpstore import *
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -25,7 +25,6 @@ class GaiaDMPSetup:
             return check
 
         if not tablesExist():
-        
             # database name to create
             database = "gaiaedr3"
 
@@ -35,15 +34,15 @@ class GaiaDMPSetup:
 
             # create the tables against their corresponding file sets and schema
             for table_key in edr3.table_dict.keys():
-                folder_path = edr3.table_dict[table_key][0]
-                schema = edr3.table_dict[table_key][1]
-                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, *schema)
-                                                  
+                folder_path = edr3.table_dict[table_key][1]
+                schemas = edr3.table_dict[table_key][0]
+                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas)
+
             # ... similarly for Gaia DR3
             database = "gaiadr3"
             spark.sql("create database " + database)
             spark.sql("use " + database)
-            
+
             # TODO create the tables against their corresponding file sets and schema            
             #for table_key in dr3.table_dict.keys():
             #    folder_path = dr3.table_dict[table_key][0]
@@ -52,3 +51,4 @@ class GaiaDMPSetup:
 
 
 GaiaDMPSetup.setup()
+

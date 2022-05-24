@@ -1619,19 +1619,20 @@ table_dict = {
     #'vari_rad_vel_statistics',
     #'vari_short_timescale',
     'xp_continuous_mean_spectrum' : 
-        ((xp_continuous_mean_spectrum_schema), release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
+        ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
     'xp_sampled_mean_spectrum' : 
-        ((xp_sampled_mean_spectrum_schema), release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
+        ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
     'xp_summary' : 
-        ((xp_summary_schema), release_folder + '/GDR3_XP_SUMMARY'),
+        ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
     #'commanded_scan_law',
     #'agn_cross_id',
     #'frame_rotator_source',
     #'gaia_crf3_xm',
     'gaia_source_simulation' : 
-        ((gaia_source_simulation_schema), release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
+        ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
     'gaia_universe_model' : 
-        ((gaia_universe_model_schema), release_folder + '/GDR3_UNIVERSE_MODEL'),
+        ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
 }
 # ... small tables commented out: TODO decide later what to include.
+
 
