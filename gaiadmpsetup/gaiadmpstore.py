@@ -43,7 +43,7 @@ def saveToBinnedParquet(df, outputParquetPath, name, mode = "error", buckets = N
             .saveAsTable(name)
 
 def reattachParquetFileResourceToSparkContext(table_name, file_path, schema_structures, cluster_key = default_key, sort_key = default_key, buckets = NUM_BUCKETS):
-	"""
+	'''
 	Creates a Spark (in-memory) meta-record for the table resource specified for querying
 	through the PySpark SQL API.
 
@@ -69,7 +69,7 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, schema_stru
 	    Default is Gaia catalogue source UID (= source_id).
 	buckets : int (optional)
 	    Number of buckets into which the data is organised.
-	"""
+	'''
 
 	# put in the columns and their data types ...
 	table_create_statement = "CREATE TABLE `" + table_name + "` ("
@@ -93,6 +93,8 @@ def reattachParquetFileResourceToSparkContext(table_name, file_path, schema_stru
 	# create the table resource
 	spark.sql(table_create_statement)
 
+import copy
+
 def create_interim_schema_for_csv(schema_structure):
     '''
     Takes a schema StructType() and substitutes all array types as a string in order
@@ -115,13 +117,14 @@ def create_interim_schema_for_csv(schema_structure):
     
     # iterate over the schema, copying in everything and substituting strings for any arrays
     for field in schema_structure:
-        if type(field.dataType) == ArrayType: field.dataType = StringType()
-        interim_structure.add(field)
+        interim_field = copy.deepcopy(field)
+        if type(interim_field.dataType) == ArrayType: interim_field.dataType = StringType()
+        interim_structure.add(interim_field)
     
     return interim_structure
 
 def cast_to_array(data_frame : DataFrame, column_name : str, data_type : DataType):
-    """
+    '''
     Casts the specified string column in the given data frame into an
     array with the specified data type. Assumes the string column contains
     comma-separated values in plain text delimited by braces (which are
@@ -143,7 +146,7 @@ def cast_to_array(data_frame : DataFrame, column_name : str, data_type : DataTyp
     Returns:
     --------
     a new data frame containing the requested modification
-    """
+    '''
     
     # a temporary working column name for the array
     temporary_column_name = column_name + '_array_data'
@@ -161,7 +164,7 @@ def cast_to_array(data_frame : DataFrame, column_name : str, data_type : DataTyp
     
     
 def reorder_columns(data_frame : DataFrame, data_structure : StructType):
-    """
+    '''
     Reorder the columns according to the Gaia archive public schema and so that
     the parquet files can be re-attached against that standard schema.
     
@@ -171,7 +174,11 @@ def reorder_columns(data_frame : DataFrame, data_structure : StructType):
         The PySpark data frame instance to be operated on
     data_structure : StructType()
         The PySpark data structure containing the required schema definition
-    """
+        
+    Returns:
+    --------
+    a new data frame with columns re-ordered according to that in the schema
+    '''
     
     # use the schema to define the column order
     ordered_columns = [field.name for field in data_structure]
@@ -181,7 +188,7 @@ def reorder_columns(data_frame : DataFrame, data_structure : StructType):
     
 
 def cast_all_arrays(data_frame : DataFrame, data_structure : StructType):
-    """
+    '''
     Given an interim data frame read from csv and containing arrays in
     plain text string representation, cycles over the schema transforming
     all strings associated with arrays into the required primitive type.
@@ -192,7 +199,11 @@ def cast_all_arrays(data_frame : DataFrame, data_structure : StructType):
         The PySpark data frame instance to be operated on
     data_structure : StructType()
         The PySpark data structure containing the required schema definition
-    """
+        
+    Returns:
+    --------
+    a new data frame with all arrays expressed as interim strings cast to their array structure type
+    '''
     
     # cycle over the defined fields looking for arrays
     for field in data_structure:
