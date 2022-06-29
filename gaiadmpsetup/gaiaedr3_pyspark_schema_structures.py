@@ -577,12 +577,13 @@ release_folder = 'GEDR3'
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
     'gaia_source' : 
-        ((gaia_source_schema), release_folder + '/GEDR3_GAIASOURCE'),
+        ([gaia_source_schema], release_folder + '/GEDR3_GAIASOURCE'),
     'gaia_source_tmasspsc_best_neighbours' : 
-        ((tmasspscxsc_best_neighbour_schema, twomass_psc_schema), release_folder + '/GEDR3_2MASSPSC_BEST_NEIGHBOURS'),
+        ([tmasspscxsc_best_neighbour_schema, twomass_psc_schema], release_folder + '/GEDR3_2MASSPSC_BEST_NEIGHBOURS'),
     'gaia_source_allwise_best_neighbours' : 
-        ((allwise_best_neighbour_schema, twomass_psc_schema), release_folder + '/GEDR3_ALLWISE_BEST_NEIGHBOURS'),
+        ([allwise_best_neighbour_schema, twomass_psc_schema], release_folder + '/GEDR3_ALLWISE_BEST_NEIGHBOURS'),
     'gaia_source_ps1_best_neighbours' : 
-        ((panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema), release_folder + '/GEDR3_PS1_BEST_NEIGHBOURS')
+        ([panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema], release_folder + '/GEDR3_PS1_BEST_NEIGHBOURS')
 }
+
 
