@@ -1569,70 +1569,72 @@ release_folder = 'GDR3'
 
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
-    #'vari_time_series_statistics',
-    #'alerts_mixedin_sourceids',
-    'astrophysical_parameters' : 
-        ((astrophysical_parameters_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
-    'astrophysical_parameters_supp' : 
-        ((astrophysical_parameters_supp_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
-    'epoch_photometry' : 
-        ((epoch_photometry_schema), release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
+    ##'vari_time_series_statistics',
+    ##'alerts_mixedin_sourceids',
+    #'astrophysical_parameters' : 
+    #    ((astrophysical_parameters_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
+    #'astrophysical_parameters_supp' : 
+    #    ((astrophysical_parameters_supp_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
+    #'epoch_photometry' : 
+    #    ((epoch_photometry_schema), release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
     'gaia_source' : 
-        ((gaia_source_schema), release_folder + '/GDR3_GAIA_SOURCE'),
-    #'galaxy_candidates',
-    #'galaxy_catalogue_name',
-    'mcmc_samples_gsp_phot' : 
-        ((mcmc_samples_gsp_phot_schema), release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT'),
-    'mcmc_samples_msc' : 
-        ((mcmc_samples_msc_schema), release_folder + '/GDR3_MCMC_SAMPLES_MSC'),
-    #'nss_acceleration_astro',
-    #'nss_non_linear_spectro',
-    #'nss_two_body_orbit',
-    #'nss_vim_fl',
-    'oa_neuron_information' : 
-        ((oa_neuron_information_schema), release_folder + '/GDR3_OA_NEURON_INFORMATION'),
-    'oa_neuron_xp_spectra' : 
-        ((oa_neuron_xp_spectra_schema), release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
-    #'qso_candidates',
-    #'qso_catalogue_name',
-    'rvs_mean_spectrum' : 
-        ((rvs_mean_spectrum_schema), release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
-    #'science_alerts',
-    #'sso_observation',
-    #'sso_reflectance_spectrum',
-    #'sso_source',
-    'total_galactic_extinction_map' : 
-        ((total_galactic_extinction_map_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP'),
-    'total_galactic_extinction_map_opt' : 
-        ((total_galactic_extinction_map_opt_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT'),
-    #'vari_agn',
-    #'vari_classifier_class_definition',
-    #'vari_classifier_definition',
-    #'vari_classifier_result',
-    #'vari_compact_companion',
-    #'vari_eclipsing_binary',
-    #'vari_epoch_radial_velocity',
-    #'vari_long_period_variable',
-    #'vari_microlensing',
-    #'vari_ms_oscillator',
-    #'vari_planetary_transit',
-    #'vari_rad_vel_statistics',
-    #'vari_short_timescale',
+        ((gaia_source_schema), release_folder + '/GDR3_GAIASOURCE'),
+    ##'galaxy_candidates',
+    ##'galaxy_catalogue_name',
+    #'mcmc_samples_gsp_phot' : 
+    #    ((mcmc_samples_gsp_phot_schema), release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT'),
+    #'mcmc_samples_msc' : 
+    #    ((mcmc_samples_msc_schema), release_folder + '/GDR3_MCMC_SAMPLES_MSC'),
+    ##'nss_acceleration_astro',
+    ##'nss_non_linear_spectro',
+    ##'nss_two_body_orbit',
+    ##'nss_vim_fl',
+    #'oa_neuron_information' : 
+    #    ((oa_neuron_information_schema), release_folder + '/GDR3_OA_NEURON_INFORMATION'),
+    #'oa_neuron_xp_spectra' : 
+    #    ((oa_neuron_xp_spectra_schema), release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
+    ##'qso_candidates',
+    ##'qso_catalogue_name',
+    #'rvs_mean_spectrum' : 
+    #    ((rvs_mean_spectrum_schema), release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
+    ##'science_alerts',
+    ##'sso_observation',
+    ##'sso_reflectance_spectrum',
+    ##'sso_source',
+    #'total_galactic_extinction_map' : 
+    #    ((total_galactic_extinction_map_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP'),
+    #'total_galactic_extinction_map_opt' : 
+    #    ((total_galactic_extinction_map_opt_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT'),
+    ##'vari_agn',
+    ##'vari_classifier_class_definition',
+    ##'vari_classifier_definition',
+    ##'vari_classifier_result',
+    ##'vari_compact_companion',
+    ##'vari_eclipsing_binary',
+    ##'vari_epoch_radial_velocity',
+    ##'vari_long_period_variable',
+    ##'vari_microlensing',
+    ##'vari_ms_oscillator',
+    ##'vari_planetary_transit',
+    ##'vari_rad_vel_statistics',
+    ##'vari_short_timescale',
     'xp_continuous_mean_spectrum' : 
         ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
-    'xp_sampled_mean_spectrum' : 
-        ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
-    'xp_summary' : 
-        ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
-    #'commanded_scan_law',
-    #'agn_cross_id',
-    #'frame_rotator_source',
-    #'gaia_crf3_xm',
-    #'gaia_source_simulation' : 
-    #    ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
-    #'gaia_universe_model' : 
-    #    ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
+    #'xp_sampled_mean_spectrum' : 
+    #    ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
+    #'xp_summary' : 
+    #    ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
+    ##'commanded_scan_law',
+    ##'agn_cross_id',
+    ##'frame_rotator_source',
+    ##'gaia_crf3_xm',
+    ##'gaia_source_simulation' : 
+    ##    ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
+    ##'gaia_universe_model' : 
+    ##    ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
 }
-# ... small tables commented out: TODO decide later what to include.
+# ... small tables doubly commented out;
+# tables that should be ingested but that have not been ingested yet owing to ingest issues are singly commented; 
+# TODO decide later what to include.
 
 
