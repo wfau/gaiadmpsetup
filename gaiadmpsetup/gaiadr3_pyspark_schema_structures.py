@@ -489,34 +489,34 @@ epoch_photometry_schema = StructType([
     StructField('rp_flux_error', ArrayType(DoubleType()), True), # RP band flux error
     StructField('rp_flux_over_error', ArrayType(FloatType()), True), # RP band flux divided by its error
     StructField('rp_mag', ArrayType(DoubleType()), True), # RP band Vega magnitude
-    StructField('photometry_flag_noisy_data', ArrayType(ByteType()), True), # G band flux scatter larger than expected by photometry processing (all CCDs considered)
-    StructField('photometry_flag_sm_unavailable', ArrayType(ByteType()), True), # SM transit unavailable by photometry processing
-    StructField('photometry_flag_af1_unavailable', ArrayType(ByteType()), True), # AF1 transit unavailable by photometry processing
-    StructField('photometry_flag_af2_unavailable', ArrayType(ByteType()), True), # AF2 transit unavailable by photometry processing
-    StructField('photometry_flag_af3_unavailable', ArrayType(ByteType()), True), # AF3 transit unavailable by photometry processing
-    StructField('photometry_flag_af4_unavailable', ArrayType(ByteType()), True), # AF4 transit unavailable by photometry processing
-    StructField('photometry_flag_af5_unavailable', ArrayType(ByteType()), True), # AF5 transit unavailable by photometry processing
-    StructField('photometry_flag_af6_unavailable', ArrayType(ByteType()), True), # AF6 transit unavailable by photometry processing
-    StructField('photometry_flag_af7_unavailable', ArrayType(ByteType()), True), # AF7 transit unavailable by photometry processing
-    StructField('photometry_flag_af8_unavailable', ArrayType(ByteType()), True), # AF8 transit unavailable by photometry processing
-    StructField('photometry_flag_af9_unavailable', ArrayType(ByteType()), True), # AF9 transit unavailable by photometry processing
-    StructField('photometry_flag_bp_unavailable', ArrayType(ByteType()), True), # BP transit unavailable by photometry processing
-    StructField('photometry_flag_rp_unavailable', ArrayType(ByteType()), True), # RP transit unavailable by photometry processing
-    StructField('photometry_flag_sm_reject', ArrayType(ByteType()), True), # SM transit rejected by photometry processing
-    StructField('photometry_flag_af1_reject', ArrayType(ByteType()), True), # AF1 transit rejected by photometry processing
-    StructField('photometry_flag_af2_reject', ArrayType(ByteType()), True), # AF2 transit rejected by photometry processing
-    StructField('photometry_flag_af3_reject', ArrayType(ByteType()), True), # AF3 transit rejected by photometry processing
-    StructField('photometry_flag_af4_reject', ArrayType(ByteType()), True), # AF4 transit rejected by photometry processing
-    StructField('photometry_flag_af5_reject', ArrayType(ByteType()), True), # AF5 transit rejected by photometry processing
-    StructField('photometry_flag_af6_reject', ArrayType(ByteType()), True), # AF6 transit rejected by photometry processing
-    StructField('photometry_flag_af7_reject', ArrayType(ByteType()), True), # AF7 transit rejected by photometry processing
-    StructField('photometry_flag_af8_reject', ArrayType(ByteType()), True), # AF8 transit rejected by photometry processing
-    StructField('photometry_flag_af9_reject', ArrayType(ByteType()), True), # AF9 transit rejected by photometry processing
-    StructField('photometry_flag_bp_reject', ArrayType(ByteType()), True), # BP transit rejected by photometry processing
-    StructField('photometry_flag_rp_reject', ArrayType(ByteType()), True), # RP transit rejected by photometry processing
-    StructField('variability_flag_g_reject', ArrayType(ByteType()), True), # Average G transit photometry rejected by variability processing
-    StructField('variability_flag_bp_reject', ArrayType(ByteType()), True), # BP transit photometry rejected by variability processing
-    StructField('variability_flag_rp_reject', ArrayType(ByteType()), True), # RP transit photometry rejected by variability processing
+    StructField('photometry_flag_noisy_data', ArrayType(BooleanType()), True), # G band flux scatter larger than expected by photometry processing (all CCDs considered)
+    StructField('photometry_flag_sm_unavailable', ArrayType(BooleanType()), True), # SM transit unavailable by photometry processing
+    StructField('photometry_flag_af1_unavailable', ArrayType(BooleanType()), True), # AF1 transit unavailable by photometry processing
+    StructField('photometry_flag_af2_unavailable', ArrayType(BooleanType()), True), # AF2 transit unavailable by photometry processing
+    StructField('photometry_flag_af3_unavailable', ArrayType(BooleanType()), True), # AF3 transit unavailable by photometry processing
+    StructField('photometry_flag_af4_unavailable', ArrayType(BooleanType()), True), # AF4 transit unavailable by photometry processing
+    StructField('photometry_flag_af5_unavailable', ArrayType(BooleanType()), True), # AF5 transit unavailable by photometry processing
+    StructField('photometry_flag_af6_unavailable', ArrayType(BooleanType()), True), # AF6 transit unavailable by photometry processing
+    StructField('photometry_flag_af7_unavailable', ArrayType(BooleanType()), True), # AF7 transit unavailable by photometry processing
+    StructField('photometry_flag_af8_unavailable', ArrayType(BooleanType()), True), # AF8 transit unavailable by photometry processing
+    StructField('photometry_flag_af9_unavailable', ArrayType(BooleanType()), True), # AF9 transit unavailable by photometry processing
+    StructField('photometry_flag_bp_unavailable', ArrayType(BooleanType()), True), # BP transit unavailable by photometry processing
+    StructField('photometry_flag_rp_unavailable', ArrayType(BooleanType()), True), # RP transit unavailable by photometry processing
+    StructField('photometry_flag_sm_reject', ArrayType(BooleanType()), True), # SM transit rejected by photometry processing
+    StructField('photometry_flag_af1_reject', ArrayType(BooleanType()), True), # AF1 transit rejected by photometry processing
+    StructField('photometry_flag_af2_reject', ArrayType(BooleanType()), True), # AF2 transit rejected by photometry processing
+    StructField('photometry_flag_af3_reject', ArrayType(BooleanType()), True), # AF3 transit rejected by photometry processing
+    StructField('photometry_flag_af4_reject', ArrayType(BooleanType()), True), # AF4 transit rejected by photometry processing
+    StructField('photometry_flag_af5_reject', ArrayType(BooleanType()), True), # AF5 transit rejected by photometry processing
+    StructField('photometry_flag_af6_reject', ArrayType(BooleanType()), True), # AF6 transit rejected by photometry processing
+    StructField('photometry_flag_af7_reject', ArrayType(BooleanType()), True), # AF7 transit rejected by photometry processing
+    StructField('photometry_flag_af8_reject', ArrayType(BooleanType()), True), # AF8 transit rejected by photometry processing
+    StructField('photometry_flag_af9_reject', ArrayType(BooleanType()), True), # AF9 transit rejected by photometry processing
+    StructField('photometry_flag_bp_reject', ArrayType(BooleanType()), True), # BP transit rejected by photometry processing
+    StructField('photometry_flag_rp_reject', ArrayType(BooleanType()), True), # RP transit rejected by photometry processing
+    StructField('variability_flag_g_reject', ArrayType(BooleanType()), True), # Average G transit photometry rejected by variability processing
+    StructField('variability_flag_bp_reject', ArrayType(BooleanType()), True), # BP transit photometry rejected by variability processing
+    StructField('variability_flag_rp_reject', ArrayType(BooleanType()), True), # RP transit photometry rejected by variability processing
 ])
 gaia_source_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
@@ -555,7 +555,7 @@ gaia_source_schema = StructType([
     StructField('astrometric_excess_noise', FloatType(), True), # Excess noise of the source
     StructField('astrometric_excess_noise_sig', FloatType(), True), # Significance of excess noise
     StructField('astrometric_params_solved', ByteType(), True), # Which parameters have been solved for?
-    StructField('astrometric_primary_flag', ByteType(), True), # Primary or seconday
+    StructField('astrometric_primary_flag', BooleanType(), True), # Primary or seconday
     StructField('nu_eff_used_in_astrometry', FloatType(), True), # Effective wavenumber of the source used in the astrometric solution
     StructField('pseudocolour', FloatType(), True), # Astrometrically estimated pseudocolour of the source
     StructField('pseudocolour_error', FloatType(), True), # Standard error of the pseudocolour of the source
@@ -583,7 +583,7 @@ gaia_source_schema = StructType([
     StructField('scan_direction_mean_k2', FloatType(), True), # Mean position angle of scan directions across the source
     StructField('scan_direction_mean_k3', FloatType(), True), # Mean position angle of scan directions across the source
     StructField('scan_direction_mean_k4', FloatType(), True), # Mean position angle of scan directions across the source
-    StructField('duplicated_source', ByteType(), True), # Source with multiple source identifiers
+    StructField('duplicated_source', BooleanType(), True), # Source with multiple source identifiers
     StructField('phot_g_n_obs', ShortType(), True), # Number of observations contributing to G photometry
     StructField('phot_g_mean_flux', DoubleType(), True), # G-band mean flux
     StructField('phot_g_mean_flux_error', FloatType(), True), # Error on G-band mean flux
@@ -635,17 +635,17 @@ gaia_source_schema = StructType([
     StructField('b', DoubleType(), True), # Galactic latitude
     StructField('ecl_lon', DoubleType(), True), # Ecliptic longitude
     StructField('ecl_lat', DoubleType(), True), # Ecliptic latitude
-    StructField('in_qso_candidates', ByteType(), True), # Flag indicating the availability of additional information in the QsoCandidates table
-    StructField('in_galaxy_candidates', ByteType(), True), # Flag indicating the availability of additional information in the GalaxyCandidates table
+    StructField('in_qso_candidates', BooleanType(), True), # Flag indicating the availability of additional information in the QsoCandidates table
+    StructField('in_galaxy_candidates', BooleanType(), True), # Flag indicating the availability of additional information in the GalaxyCandidates table
     StructField('non_single_star', ShortType(), True), # Flag indicating the availability of additional information in the various Non-Single Star tables
-    StructField('has_xp_continuous', ByteType(), True), # Flag indicating the availability of mean BP/RP spectrum in continuous representation for this source
-    StructField('has_xp_sampled', ByteType(), True), # Flag indicating the availability of mean BP/RP spectrum in sampled form for this source
-    StructField('has_rvs', ByteType(), True), # Flag indicating the availability of mean RVS spectrum for this source
-    StructField('has_epoch_photometry', ByteType(), True), # Flag indicating the availability of epoch photometry for this source
-    StructField('has_epoch_rv', ByteType(), True), # Flag indicating the availability of epoch radial velocity for this source
-    StructField('has_mcmc_gspphot', ByteType(), True), # Flag indicating the availability of GSP-Phot MCMC samples for this source
-    StructField('has_mcmc_msc', ByteType(), True), # Flag indicating the availability of MSC MCMC samples for this source
-    StructField('in_andromeda_survey', ByteType(), True), # Flag indicating that the source is present in the Gaia Andromeda Photometric Survey (GAPS)
+    StructField('has_xp_continuous', BooleanType(), True), # Flag indicating the availability of mean BP/RP spectrum in continuous representation for this source
+    StructField('has_xp_sampled', BooleanType(), True), # Flag indicating the availability of mean BP/RP spectrum in sampled form for this source
+    StructField('has_rvs', BooleanType(), True), # Flag indicating the availability of mean RVS spectrum for this source
+    StructField('has_epoch_photometry', BooleanType(), True), # Flag indicating the availability of epoch photometry for this source
+    StructField('has_epoch_rv', BooleanType(), True), # Flag indicating the availability of epoch radial velocity for this source
+    StructField('has_mcmc_gspphot', BooleanType(), True), # Flag indicating the availability of GSP-Phot MCMC samples for this source
+    StructField('has_mcmc_msc', BooleanType(), True), # Flag indicating the availability of MSC MCMC samples for this source
+    StructField('in_andromeda_survey', BooleanType(), True), # Flag indicating that the source is present in the Gaia Andromeda Photometric Survey (GAPS)
     StructField('classprob_dsc_combmod_quasar', FloatType(), True), # Probability from DSC-Combmod of being a quasar (data used: BP/RP spectrum, photometry, astrometry)
     StructField('classprob_dsc_combmod_galaxy', FloatType(), True), # Probability from DSC-Combmod of being a galaxy (data used: BP/RP spectrum, photometry, astrometry)
     StructField('classprob_dsc_combmod_star', FloatType(), True), # Probability from DSC-Combmod of being a single star (but not a white dwarf) (data used: BP/RP spectrum, photometry, astrometry)
@@ -998,8 +998,8 @@ oa_neuron_xp_spectra_schema = StructType([
 qso_candidates_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
     StructField('source_id', LongType(), False), # Unique source identifier (unique within a particular Data Release)
-    StructField('astrometric_selection_flag', ByteType(), True), # Flag indicating if the source is part of the astrometric selection
-    StructField('gaia_crf_source', ByteType(), True), # Flag indicative of whether the source was used define the Gaia-CRF3
+    StructField('astrometric_selection_flag', BooleanType(), True), # Flag indicating if the source is part of the astrometric selection
+    StructField('gaia_crf_source', BooleanType(), True), # Flag indicative of whether the source was used define the Gaia-CRF3
     StructField('vari_best_class_name', StringType(), True), # Name of best class, see table VariClassifierClassDefinition for details of the class
     StructField('vari_best_class_score', FloatType(), True), # Score of the best class
     StructField('fractional_variability_g', FloatType(), True), # Fractional variability in the G band
@@ -1032,7 +1032,7 @@ qso_candidates_schema = StructType([
     StructField('ellipticity_hostgalaxy_error', DoubleType(), True), # Error on the fitted ellipticity of the host galaxy
     StructField('posangle_hostgalaxy', DoubleType(), True), # Fitted position angle of the host galaxy
     StructField('posangle_hostgalaxy_error', DoubleType(), True), # Error on the fitted position angle of the host galaxy
-    StructField('host_galaxy_detected', ByteType(), True), # Flag indicating whether a host galaxy has been detected
+    StructField('host_galaxy_detected', BooleanType(), True), # Flag indicating whether a host galaxy has been detected
     StructField('l2_norm', DoubleType(), True), # L2 norm for the fitted Sersic profile
     StructField('morph_params_corr_vec', ArrayType(DoubleType()), True), # Vector form of the upper triangle of the correlation matrix for the fitted morphological parameters
     StructField('host_galaxy_flag', ByteType(), True), # Flag indicative of processing or scientific quality for the morphological parameters fitting
@@ -1126,7 +1126,7 @@ total_galactic_extinction_map_schema = StructType([
     StructField('a0_min', FloatType(), True), # Minimum $A_0$ value used for the HEALPix of interest
     StructField('a0_max', FloatType(), True), # Maximum $A_0$ value used for the HEALPix of interest
     StructField('num_tracers_used', IntegerType(), True), # Number of tracers used
-    StructField('optimum_hpx_flag', ByteType(), True), # Flag to indicate whether a given HEALPix level is the optimum (True) or not (False)
+    StructField('optimum_hpx_flag', BooleanType(), True), # Flag to indicate whether a given HEALPix level is the optimum (True) or not (False)
     StructField('status', ShortType(), True), # Exit status for TGE
 ])
 total_galactic_extinction_map_opt_schema = StructType([
@@ -1240,7 +1240,7 @@ vari_epoch_radial_velocity_schema = StructType([
     StructField('rv_obs_time', DoubleType(), True), # Observing time of the transit
     StructField('radial_velocity', DoubleType(), True), # Barycentric radial velocity
     StructField('radial_velocity_error', DoubleType(), True), # Barycentric radial velocity error
-    StructField('rejected_by_variability', ByteType(), True), # Rejected by DPAC variability processing (or variability analysis)
+    StructField('rejected_by_variability', BooleanType(), True), # Rejected by DPAC variability processing (or variability analysis)
     StructField('solution_id', LongType(), True), # Solution Identifier
 ])
 vari_long_period_variable_schema = StructType([
@@ -1250,7 +1250,7 @@ vari_long_period_variable_schema = StructType([
     StructField('frequency_error', FloatType(), True), # Error on the frequency
     StructField('amplitude', FloatType(), True), # Amplitude of the LPV variability
     StructField('median_delta_wl_rp', FloatType(), True), # Median of the pseudo-wavelength separations between the two highest peaks in RP spectra 
-    StructField('is_cstar', ByteType(), True), # Flag to mark C-stars
+    StructField('is_cstar', BooleanType(), True), # Flag to mark C-stars
 ])
 vari_microlensing_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
@@ -1434,48 +1434,48 @@ agn_cross_id_schema = StructType([
 ])
 frame_rotator_source_schema = StructType([
     StructField('source_id', LongType(), False), # Gaia source identifier
-    StructField('considered_for_reference_frame_orientation', ByteType(), True), # Considered for the reference frame orientation
-    StructField('used_for_reference_frame_orientation', ByteType(), True), # Used for the reference frame orientation
-    StructField('considered_for_reference_frame_spin', ByteType(), True), # Considered for the reference frame spin
-    StructField('used_for_reference_frame_spin', ByteType(), True), # Used for the reference frame spin
+    StructField('considered_for_reference_frame_orientation', BooleanType(), True), # Considered for the reference frame orientation
+    StructField('used_for_reference_frame_orientation', BooleanType(), True), # Used for the reference frame orientation
+    StructField('considered_for_reference_frame_spin', BooleanType(), True), # Considered for the reference frame spin
+    StructField('used_for_reference_frame_spin', BooleanType(), True), # Used for the reference frame spin
 ])
 gaia_crf3_xm_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
     StructField('source_id', LongType(), False), # Gaia source identifier
-    StructField('icrf3sx', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 S/X
-    StructField('icrf3k', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 K
-    StructField('icrf3xka', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 X/Ka
+    StructField('icrf3sx', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 S/X
+    StructField('icrf3k', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 K
+    StructField('icrf3xka', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in ICRF3 X/Ka
     StructField('icrf_name', StringType(), True), # The ICRF name of the source
     StructField('iers_name', StringType(), True), # The IERS name of the source
-    StructField('ocars', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in OCARS
+    StructField('ocars', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in OCARS
     StructField('ocars_name', StringType(), True), # The name for this source in OCARS
-    StructField('aw15', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in allWISE
+    StructField('aw15', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in allWISE
     StructField('aw15_name', StringType(), True), # The name for this source in allWISE
-    StructField('r90', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue R90
+    StructField('r90', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue R90
     StructField('r90_name', StringType(), True), # The name for this source in R90
-    StructField('m65', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in Milliquas v6.5
+    StructField('m65', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in Milliquas v6.5
     StructField('m65_name', StringType(), True), # The name for this source in Milliquas v6.5
-    StructField('c75', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue C75
+    StructField('c75', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue C75
     StructField('c75_name', StringType(), True), # The name for this source in C75
-    StructField('dr14q', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue SDSS DR14Q
+    StructField('dr14q', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the catalogue SDSS DR14Q
     StructField('dr14q_name', StringType(), True), # The name for this source in SDSS DR14Q
-    StructField('lqac5', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in LQAC-5
+    StructField('lqac5', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in LQAC-5
     StructField('lqac5_name', StringType(), True), # The name for this source in LQAC-5
-    StructField('lamost5', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the LAMOST QSO catalogue
+    StructField('lamost5', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the LAMOST QSO catalogue
     StructField('lamost5_name', StringType(), True), # The name for this source in the LAMOST QSO catalogue
-    StructField('lqrf', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in LQRF
+    StructField('lqrf', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in LQRF
     StructField('lqrf_name', StringType(), True), # The name for this source in LQRF
-    StructField('cat2qz', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in 2QZ
+    StructField('cat2qz', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in 2QZ
     StructField('cat2qz_name', StringType(), True), # The name for this source in 2QZ
-    StructField('bzcat5', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in Roma-BZCAT, v5
+    StructField('bzcat5', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in Roma-BZCAT, v5
     StructField('bzcat5_name', StringType(), True), # The name for this source in Roma-BZCAT, v5
-    StructField('cat2whspj', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in 2WHSPJ
+    StructField('cat2whspj', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in 2WHSPJ
     StructField('cat2whspj_name', StringType(), True), # The name for this source in 2WHSPJ
-    StructField('alma19', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the ALMA calibrator catalogue
+    StructField('alma19', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the ALMA calibrator catalogue
     StructField('alma19_name', StringType(), True), # The name for this source in the ALMA calibrator catalogue
-    StructField('guw', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in Gaia-unWISE
+    StructField('guw', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in Gaia-unWISE
     StructField('guw_name', StringType(), True), # The name for this source in Gaia-unWISE
-    StructField('b19', ByteType(), True), # The flag describing if the Gaia-CRF3 source was found in the Gaia DR2 quasar and galaxy classification catalogue
+    StructField('b19', BooleanType(), True), # The flag describing if the Gaia-CRF3 source was found in the Gaia DR2 quasar and galaxy classification catalogue
     StructField('b19_name', StringType(), True), # The name for this source in the Gaia DR2 quasar and galaxy classification catalogue
 ])
 gaia_source_simulation_schema = StructType([
@@ -1547,7 +1547,7 @@ gaia_universe_model_schema = StructType([
     StructField('radius', FloatType(), True), # Radius
     StructField('vsini', FloatType(), True), # Rotational velocity
     StructField('population', IntegerType(), True), # Population
-    StructField('has_photocenter_motion', ByteType(), True), # Boolean describing if the photocenter has or not motion
+    StructField('has_photocenter_motion', BooleanType(), True), # Boolean describing if the photocenter has or not motion
     StructField('nc', IntegerType(), True), # Number of components
     StructField('nt', IntegerType(), True), # Total number of object
     StructField('semimajor_axis', FloatType(), True), # Semi major axis 
@@ -1569,70 +1569,72 @@ release_folder = 'GDR3'
 
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
-    #'vari_time_series_statistics',
-    #'alerts_mixedin_sourceids',
+    ##'vari_time_series_statistics',
+    ##'alerts_mixedin_sourceids',
     'astrophysical_parameters' : 
-        ((astrophysical_parameters_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
+        ([astrophysical_parameters_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
     'astrophysical_parameters_supp' : 
-        ((astrophysical_parameters_supp_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
-    'epoch_photometry' : 
-        ((epoch_photometry_schema), release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
+        ([astrophysical_parameters_supp_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
+    #'epoch_photometry' : 
+    #    ([epoch_photometry_schema], release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
     'gaia_source' : 
-        ((gaia_source_schema), release_folder + '/GDR3_GAIASOURCE'),
-    #'galaxy_candidates',
-    #'galaxy_catalogue_name',
-    'mcmc_samples_gsp_phot' : 
-        ((mcmc_samples_gsp_phot_schema), release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT'),
-    'mcmc_samples_msc' : 
-        ((mcmc_samples_msc_schema), release_folder + '/GDR3_MCMC_SAMPLES_MSC'),
-    #'nss_acceleration_astro',
-    #'nss_non_linear_spectro',
-    #'nss_two_body_orbit',
-    #'nss_vim_fl',
-    'oa_neuron_information' : 
-        ((oa_neuron_information_schema), release_folder + '/GDR3_OA_NEURON_INFORMATION'),
-    'oa_neuron_xp_spectra' : 
-        ((oa_neuron_xp_spectra_schema), release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
-    #'qso_candidates',
-    #'qso_catalogue_name',
+        ([gaia_source_schema], release_folder + '/GDR3_GAIASOURCE'),
+    ##'galaxy_candidates',
+    ##'galaxy_catalogue_name',
+    #'mcmc_samples_gsp_phot' : 
+    #    ([mcmc_samples_gsp_phot_schema[], release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT'),
+    #'mcmc_samples_msc' : 
+    #    ([mcmc_samples_msc_schema[], release_folder + '/GDR3_MCMC_SAMPLES_MSC'),
+    ##'nss_acceleration_astro',
+    ##'nss_non_linear_spectro',
+    ##'nss_two_body_orbit',
+    ##'nss_vim_fl',
+    #'oa_neuron_information' : 
+    #    ([oa_neuron_information_schema], release_folder + '/GDR3_OA_NEURON_INFORMATION'),
+    #'oa_neuron_xp_spectra' : 
+    #    ([oa_neuron_xp_spectra_schema], release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
+    ##'qso_candidates',
+    ##'qso_catalogue_name',
     'rvs_mean_spectrum' : 
-        ((rvs_mean_spectrum_schema), release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
-    #'science_alerts',
-    #'sso_observation',
-    #'sso_reflectance_spectrum',
-    #'sso_source',
-    'total_galactic_extinction_map' : 
-        ((total_galactic_extinction_map_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP'),
-    'total_galactic_extinction_map_opt' : 
-        ((total_galactic_extinction_map_opt_schema), release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT'),
-    #'vari_agn',
-    #'vari_classifier_class_definition',
-    #'vari_classifier_definition',
-    #'vari_classifier_result',
-    #'vari_compact_companion',
-    #'vari_eclipsing_binary',
-    #'vari_epoch_radial_velocity',
-    #'vari_long_period_variable',
-    #'vari_microlensing',
-    #'vari_ms_oscillator',
-    #'vari_planetary_transit',
-    #'vari_rad_vel_statistics',
-    #'vari_short_timescale',
+        ([rvs_mean_spectrum_schema], release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
+    ##'science_alerts',
+    ##'sso_observation',
+    ##'sso_reflectance_spectrum',
+    ##'sso_source',
+    #'total_galactic_extinction_map' : 
+    #    ([total_galactic_extinction_map_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP'),
+    #'total_galactic_extinction_map_opt' : 
+    #    ([total_galactic_extinction_map_opt_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT'),
+    ##'vari_agn',
+    ##'vari_classifier_class_definition',
+    ##'vari_classifier_definition',
+    ##'vari_classifier_result',
+    ##'vari_compact_companion',
+    ##'vari_eclipsing_binary',
+    ##'vari_epoch_radial_velocity',
+    ##'vari_long_period_variable',
+    ##'vari_microlensing',
+    ##'vari_ms_oscillator',
+    ##'vari_planetary_transit',
+    ##'vari_rad_vel_statistics',
+    ##'vari_short_timescale',
     'xp_continuous_mean_spectrum' : 
         ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
     'xp_sampled_mean_spectrum' : 
         ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
     'xp_summary' : 
         ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
-    #'commanded_scan_law',
-    #'agn_cross_id',
-    #'frame_rotator_source',
-    #'gaia_crf3_xm',
-    'gaia_source_simulation' : 
-        ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
-    'gaia_universe_model' : 
-        ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
+    ##'commanded_scan_law',
+    ##'agn_cross_id',
+    ##'frame_rotator_source',
+    ##'gaia_crf3_xm',
+    ##'gaia_source_simulation' : 
+    ##    ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
+    ##'gaia_universe_model' : 
+    ##    ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
 }
-# ... small tables commented out: TODO decide later what to include.
+# ... small tables doubly commented out;
+# tables that should be ingested but that have not been ingested yet owing to ingest issues are singly commented; 
+# TODO decide later what to include.
 
 
