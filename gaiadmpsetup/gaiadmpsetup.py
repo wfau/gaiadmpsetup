@@ -49,8 +49,8 @@ class GaiaDMPSetup:
 
             # create the tables against their corresponding file sets and schema            
             for table_key in dr3.table_dict.keys():
-                folder_path = dr3.table_dict[table_key][0]
-                schemas = dr3.table_dict[table_key][1]
+                folder_path = dr3.table_dict[table_key][1]
+                schemas = dr3.table_dict[table_key][0]
                 reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas)
         
         # finally always leave the PySpark SQL context in the most recent Gaia DR3 database
