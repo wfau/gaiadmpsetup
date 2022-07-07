@@ -1571,12 +1571,12 @@ release_folder = 'GDR3'
 table_dict = {
     ##'vari_time_series_statistics',
     ##'alerts_mixedin_sourceids',
-    #'astrophysical_parameters' : 
-    #    ((astrophysical_parameters_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
-    #'astrophysical_parameters_supp' : 
-    #    ((astrophysical_parameters_supp_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
-    #'epoch_photometry' : 
-    #    ((epoch_photometry_schema), release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
+    'astrophysical_parameters' : 
+        ((astrophysical_parameters_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
+    'astrophysical_parameters_supp' : 
+        ((astrophysical_parameters_supp_schema), release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
+    'epoch_photometry' : 
+        ((epoch_photometry_schema), release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
     'gaia_source' : 
         ((gaia_source_schema), release_folder + '/GDR3_GAIASOURCE'),
     ##'galaxy_candidates',
@@ -1595,8 +1595,8 @@ table_dict = {
     #    ((oa_neuron_xp_spectra_schema), release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
     ##'qso_candidates',
     ##'qso_catalogue_name',
-    #'rvs_mean_spectrum' : 
-    #    ((rvs_mean_spectrum_schema), release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
+    'rvs_mean_spectrum' : 
+        ((rvs_mean_spectrum_schema), release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
     ##'science_alerts',
     ##'sso_observation',
     ##'sso_reflectance_spectrum',
@@ -1620,10 +1620,10 @@ table_dict = {
     ##'vari_short_timescale',
     'xp_continuous_mean_spectrum' : 
         ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
-    #'xp_sampled_mean_spectrum' : 
-    #    ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
-    #'xp_summary' : 
-    #    ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
+    'xp_sampled_mean_spectrum' : 
+        ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
+    'xp_summary' : 
+        ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
     ##'commanded_scan_law',
     ##'agn_cross_id',
     ##'frame_rotator_source',
