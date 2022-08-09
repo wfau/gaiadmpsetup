@@ -1567,6 +1567,9 @@ gaia_universe_model_schema = StructType([
 # base folder for all release products
 release_folder = 'GDR3'
 
+# crossmatched table schemas for inclusion in this namespace
+from gaiaedr3_pyspark_schema_structures import tmasspscxsc_best_neighbour_schema, twomass_psc_schema, allwise_best_neighbour_schema, allwise_sc_schema, panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema
+
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
     ##'vari_time_series_statistics',
@@ -1632,6 +1635,12 @@ table_dict = {
     ##    ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
     ##'gaia_universe_model' : 
     ##    ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
+    'gaia_source_tmasspsc_best_neighbours' : 
+        ([tmasspscxsc_best_neighbour_schema, twomass_psc_schema], release_folder + '/GDR3_2MASSPSC_BEST_NEIGHBOURS'),
+    'gaia_source_allwise_best_neighbours' : 
+        ([allwise_best_neighbour_schema, allwise_sc_schema], release_folder + '/GDR3_ALLWISE_BEST_NEIGHBOURS'),
+    'gaia_source_ps1_best_neighbours' : 
+        ([panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema], release_folder + '/GDR3_PS1_BEST_NEIGHBOURS')
 }
 # ... small tables doubly commented out;
 # tables that should be ingested but that have not been ingested yet owing to ingest issues are singly commented; 
