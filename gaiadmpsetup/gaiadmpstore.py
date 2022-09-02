@@ -152,7 +152,11 @@ def cast_to_array(data_frame : DataFrame, column_name : str, data_type : DataTyp
     temporary_column_name = column_name + '_array_data'
     
     # reformat the string csv data as an array of the specified type
-    data_frame = data_frame.withColumn(temporary_column_name, f.split(f.col(column_name).substr(f.lit(2), f.length(f.col(column_name)) - 2), ',').cast(data_type))
+    if isinstance(data_type.elementType, BooleanType):
+        # ... need to allow for the double quoted boolean labels
+        data_frame = data_frame.withColumn(temporary_column_name, f.split(f.col(column_name).substr(f.lit(3), f.length(f.col(column_name)) - 3), '","').cast(data_type))
+    else:
+        data_frame = data_frame.withColumn(temporary_column_name, f.split(f.col(column_name).substr(f.lit(2), f.length(f.col(column_name)) - 2), ',').cast(data_type))
     
     # drop the original string column to save space
     data_frame = data_frame.drop(column_name)
