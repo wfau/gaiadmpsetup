@@ -1568,7 +1568,7 @@ gaia_universe_model_schema = StructType([
 release_folder = 'GDR3'
 
 # crossmatched table schemas for inclusion in this namespace
-from gaiaedr3_pyspark_schema_structures import tmasspscxsc_best_neighbour_schema, twomass_psc_schema, allwise_best_neighbour_schema, allwise_sc_schema, panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema
+from .gaiaedr3_pyspark_schema_structures import tmasspscxsc_best_neighbour_schema, twomass_psc_schema, allwise_best_neighbour_schema, allwise_sc_schema, panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema
 
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
