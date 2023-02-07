@@ -2,6 +2,7 @@ from pyspark.sql.types import *
 from pyspark.sql import functions as f
 from pyspark.sql import *
 
+import os
 
 # number of buckets for our platform
 NUM_BUCKETS = 2048
@@ -9,7 +10,7 @@ NUM_BUCKETS = 2048
 spark = SparkSession.builder.getOrCreate()
 
 # root data store path: TODO change this to the official one when established.
-data_store = "file:////data/gaia/"  # "file:////user/nch/PARQUET/REPARTITIONED/"
+data_store = os.getenv('GAIA_DMP_STORE', "file:////data/gaia/")
 
 # default key by which to bucket and sort: Gaia catalogue source UID 
 default_key = "source_id"
