@@ -1,63 +1,5 @@
 from pyspark.sql.types import *
 
-vari_time_series_statistics_schema = StructType([
-    StructField('solution_id', LongType(), True), # Solution Identifier
-    StructField('source_id', LongType(), False), # Unique source identifier
-    StructField('num_selected_g_fov', ShortType(), True), # Total number of G FOV transits selected for variability analysis
-    StructField('mean_obs_time_g_fov', DoubleType(), True), # Mean observation time for G FoV transits
-    StructField('time_duration_g_fov', FloatType(), True), # Time duration of the time series for G FoV transits
-    StructField('min_mag_g_fov', FloatType(), True), # Minimum G FoV magnitude
-    StructField('max_mag_g_fov', FloatType(), True), # Maximum G FoV magnitude
-    StructField('mean_mag_g_fov', FloatType(), True), # Mean G FoV magnitude
-    StructField('median_mag_g_fov', FloatType(), True), # Median G FoV magnitude
-    StructField('range_mag_g_fov', FloatType(), True), # Difference between the highest and lowest G FoV magnitudes
-    StructField('trimmed_range_mag_g_fov', FloatType(), True), # Trimmed difference between the highest and lowest G FoV magnitudes
-    StructField('std_dev_mag_g_fov', FloatType(), True), # Square root of the unweighted G FoV magnitude variance
-    StructField('skewness_mag_g_fov', FloatType(), True), # Standardized unweighted G FoV magnitude skewness
-    StructField('kurtosis_mag_g_fov', FloatType(), True), # Standardized unweighted G FoV magnitude kurtosis
-    StructField('mad_mag_g_fov', FloatType(), True), # Median Absolute Deviation (MAD) for G FoV transits
-    StructField('abbe_mag_g_fov', FloatType(), True), # Abbe value for G FoV transits
-    StructField('iqr_mag_g_fov', FloatType(), True), # Interquartile range for G FoV transits
-    StructField('stetson_mag_g_fov', FloatType(), True), # Stetson G FoV variability index
-    StructField('std_dev_over_rms_err_mag_g_fov', FloatType(), True), # Signal-to-Noise G FoV estimate
-    StructField('outlier_median_g_fov', FloatType(), True), # Greatest absolute deviation from the G FoV median normalized by the error
-    StructField('num_selected_bp', ShortType(), True), # Total number of BP observations selected for variability analysis
-    StructField('mean_obs_time_bp', DoubleType(), True), # Mean observation time for BP observations
-    StructField('time_duration_bp', FloatType(), True), # Time duration of the BP time series
-    StructField('min_mag_bp', FloatType(), True), # Minimum BP magnitude
-    StructField('max_mag_bp', FloatType(), True), # Maximum BP magnitude
-    StructField('mean_mag_bp', FloatType(), True), # Mean BP magnitude
-    StructField('median_mag_bp', FloatType(), True), # Median BP magnitude
-    StructField('range_mag_bp', FloatType(), True), # Difference between the highest and lowest BP magnitudes
-    StructField('trimmed_range_mag_bp', FloatType(), True), # Trimmed difference between the highest and lowest BP magnitudes
-    StructField('std_dev_mag_bp', FloatType(), True), # Square root of the unweighted BP magnitude variance
-    StructField('skewness_mag_bp', FloatType(), True), # Standardized unweighted BP magnitude skewness
-    StructField('kurtosis_mag_bp', FloatType(), True), # Standardized unweighted BP magnitude kurtosis
-    StructField('mad_mag_bp', FloatType(), True), # Median Absolute Deviation (MAD) for BP observations
-    StructField('abbe_mag_bp', FloatType(), True), # Abbe value for BP observations
-    StructField('iqr_mag_bp', FloatType(), True), # Interquartile BP magnitude range
-    StructField('stetson_mag_bp', FloatType(), True), # Stetson BP variability index
-    StructField('std_dev_over_rms_err_mag_bp', FloatType(), True), # Signal-to-Noise BP estimate
-    StructField('outlier_median_bp', FloatType(), True), # Greatest absolute deviation from the BP median normalized by the error
-    StructField('num_selected_rp', ShortType(), True), # Total number of RP observations selected for variability analysis
-    StructField('mean_obs_time_rp', DoubleType(), True), # Mean observation time for RP observations
-    StructField('time_duration_rp', FloatType(), True), # Time duration of the RP time series
-    StructField('min_mag_rp', FloatType(), True), # Minimum RP magnitude
-    StructField('max_mag_rp', FloatType(), True), # Maximum RP magnitude
-    StructField('mean_mag_rp', FloatType(), True), # Mean RP magnitude
-    StructField('median_mag_rp', FloatType(), True), # Median RP magnitude
-    StructField('range_mag_rp', FloatType(), True), # Difference between the highest and lowest RP magnitudes
-    StructField('trimmed_range_mag_rp', FloatType(), True), # Trimmed difference between the highest and lowest RP magnitudes
-    StructField('std_dev_mag_rp', FloatType(), True), # Square root of the unweighted RP magnitude variance
-    StructField('skewness_mag_rp', FloatType(), True), # Standardized unweighted RP magnitude skewness
-    StructField('kurtosis_mag_rp', FloatType(), True), # Standardized unweighted RP magnitude kurtosis
-    StructField('mad_mag_rp', FloatType(), True), # Median Absolute Deviation (MAD) for RP observations
-    StructField('abbe_mag_rp', FloatType(), True), # Abbe value for RP observations
-    StructField('iqr_mag_rp', FloatType(), True), # Interquartile RP magnitude range
-    StructField('stetson_mag_rp', FloatType(), True), # Stetson RP variability index
-    StructField('std_dev_over_rms_err_mag_rp', FloatType(), True), # Signal-to-Noise RP estimate
-    StructField('outlier_median_rp', FloatType(), True), # Greatest absolute deviation from the RP median normalized by the error
-])
 alerts_mixedin_sourceids_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
     StructField('alert_source_id', LongType(), False), # Primary sourceId associated to the alert
@@ -1147,6 +1089,89 @@ vari_agn_schema = StructType([
     StructField('qso_variability', FloatType(), True), # Quasar variability metric in the G band
     StructField('non_qso_variability', FloatType(), True), # Non-quasar variability metric in the G band
 ])
+vari_cepheid_schema = StructType([
+    StructField('solution_id', LongType(), True), # Solution Identifier
+    StructField('source_id', LongType(), False), # Unique source identifier
+    StructField('pf', DoubleType(), True), # Period corresponding to the fundamental pulsation mode in the G band time series
+    StructField('pf_error', FloatType(), True), # Uncertainty of the \texttt{pf} period
+    StructField('p1_o', DoubleType(), True), # Period corresponding to the first overtone pulsation mode in the G band time series
+    StructField('p1_o_error', FloatType(), True), # Uncertainty of the \texttt{p1O} period
+    StructField('epoch_g', DoubleType(), True), # Epoch of the maximum of the light curve in the G band
+    StructField('epoch_g_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochG}
+    StructField('epoch_bp', DoubleType(), True), # Epoch of the maximum of the light curve in the BP band
+    StructField('epoch_bp_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochBp}
+    StructField('epoch_rp', DoubleType(), True), # Epoch of the maximum of the light curve in the RP band
+    StructField('epoch_rp_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochRp}
+    StructField('epoch_rv', DoubleType(), True), # Epoch of the minimum of the radial velocity curve
+    StructField('epoch_rv_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochRv}
+    StructField('int_average_g', FloatType(), True), # Intensity-averaged magnitude in the G band
+    StructField('int_average_g_error', FloatType(), True), # Uncertainty on \texttt{intAverageG} parameter
+    StructField('int_average_bp', FloatType(), True), # Intensity-averaged magnitude in the BP band
+    StructField('int_average_bp_error', FloatType(), True), # Uncertainty on \texttt{intAverageBp} parameter
+    StructField('int_average_rp', FloatType(), True), # Intensity-averaged magnitude in the RP band
+    StructField('int_average_rp_error', FloatType(), True), # Uncertainty on \texttt{intAverageRp} parameter
+    StructField('average_rv', FloatType(), True), # Mean radial velocity
+    StructField('average_rv_error', FloatType(), True), # Uncertainty on \texttt{averageRv} parameter
+    StructField('peak_to_peak_g', FloatType(), True), # Peak-to-peak amplitude of the G band light curve
+    StructField('peak_to_peak_g_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakG} parameter
+    StructField('peak_to_peak_bp', FloatType(), True), # Peak-to-peak amplitude of the BP band light curve
+    StructField('peak_to_peak_bp_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakBp} parameter
+    StructField('peak_to_peak_rp', FloatType(), True), # Peak-to-peak amplitude of the RP band light curve
+    StructField('peak_to_peak_rp_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakRp} parameter
+    StructField('peak_to_peak_rv', DoubleType(), True), # Peak-to-peak amplitude of the radial velocity curve
+    StructField('peak_to_peak_rv_error', DoubleType(), True), # Uncertainty on the \texttt{peakToPeakRv} parameter
+    StructField('metallicity', FloatType(), True), # Metallicity of the star from the Fourier parameters of the light curve
+    StructField('metallicity_error', FloatType(), True), # Uncertainty of the \texttt{metallicity} parameter
+    StructField('r21_g', FloatType(), True), # Fourier decomposition parameter \texttt{r21G}: A2/A1 (for G band)
+    StructField('r21_g_error', FloatType(), True), # Uncertainty on the \texttt{r21G} parameter: A2/A1 (for G band)
+    StructField('r31_g', FloatType(), True), # Fourier decomposition parameter \texttt{r31G}: A3/A1 (for G band)
+    StructField('r31_g_error', FloatType(), True), # Uncertainty on the \texttt{r31G} parameter: A3/A1 (for G band)
+    StructField('phi21_g', FloatType(), True), # Fourier decomposition parameter \texttt{phi21G}: phi2 - 2*phi1 (for G band)
+    StructField('phi21_g_error', FloatType(), True), # Uncertainty on the \texttt{phi21G} parameter: phi2 - 2*phi1 (for G band)
+    StructField('phi31_g', FloatType(), True), # Fourier decomposition parameter \texttt{phi31G}: phi3 - 3*phi1 (for G band)
+    StructField('phi31_g_error', FloatType(), True), # Uncertainty on the \texttt{phi31G} parameter: phi3 - 3*phi1 (for G band)
+    StructField('num_clean_epochs_g', ShortType(), True), # Number of G FoV epochs used in the fitting algorithm
+    StructField('num_clean_epochs_bp', ShortType(), True), # Number of BP epochs used in the fitting algorithm
+    StructField('num_clean_epochs_rp', ShortType(), True), # Number of RP epochs used in the fitting algorithm
+    StructField('num_clean_epochs_rv', ShortType(), True), # Number of radial velocity epochs used in the fitting algorithm
+    StructField('zp_mag_g', FloatType(), True), # Zero point (mag) of the final model of the G band light curve
+    StructField('zp_mag_bp', FloatType(), True), # Zero point (mag) of the final model of the BP band light curve
+    StructField('zp_mag_rp', FloatType(), True), # Zero point (mag) of the final model of the RP band light curve
+    StructField('num_harmonics_for_p1_g', ByteType(), True), # Number of harmonics used to model the first periodicity of the G-band light curve
+    StructField('num_harmonics_for_p1_bp', ByteType(), True), # Number of harmonics used to model the first periodicity of the BP-band light curve
+    StructField('num_harmonics_for_p1_rp', ByteType(), True), # Number of harmonics used to model the first periodicity of the RP-band light curve
+    StructField('num_harmonics_for_p1_rv', ByteType(), True), # Number of harmonics used to model the first periodicity of the radial velocity curve
+    StructField('reference_time_g', DoubleType(), True), # Reference time of the Fourier modelled G-band light curve
+    StructField('reference_time_bp', DoubleType(), True), # Reference time of the Fourier modelled BP-band light curve
+    StructField('reference_time_rp', DoubleType(), True), # Reference time of the Fourier modelled RP-band light curve
+    StructField('reference_time_rv', DoubleType(), True), # Reference time of the Fourier modelled radial velocity curve
+    StructField('fund_freq1', DoubleType(), True), # First frequency of the non-linear Fourier modelling 
+    StructField('fund_freq1_error', FloatType(), True), # Error of the first frequency of the non-linear Fourier modelling
+    StructField('fund_freq2', DoubleType(), True), # Second frequency of the non-linear Fourier modelling in the G band
+    StructField('fund_freq2_error', FloatType(), True), # Error of the second frequency of the non-linear Fourier modelling in the G band
+    StructField('fund_freq1_harmonic_ampl_g', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_ampl_g_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_phase_g', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_phase_g_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_ampl_bp', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_ampl_bp_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_phase_bp', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_phase_bp_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_ampl_rp', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_ampl_rp_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_phase_rp', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_phase_rp_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_ampl_rv', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_ampl_rv_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_phase_rv', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_phase_rv_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency of the radial velocity curve
+    StructField('p2_o', DoubleType(), True), # Period corresponding to the second overtone pulsation mode (for multi mode pulsators) in  the G band time series
+    StructField('p2_o_error', FloatType(), True), # Uncertainty of the p2O period
+    StructField('type_best_classification', StringType(), True), # Best type classification estimate out of: `DCEP', `T2CEP', `ACEP'
+    StructField('type2_best_sub_classification', StringType(), True), # Best subclassification estimate for typeBestClassification=`T2CEP' out of: `BL_HER', `W_VIR',`RV_TAU'
+    StructField('mode_best_classification', StringType(), True), # Best mode classification estimate   out of: `FUNDAMENTAL', `FIRST_OVERTONE', `SECOND_OVERTONE', `MULTI',`UNDEFINED', `NOT_APPLICABLE'
+    StructField('multi_mode_best_classification', StringType(), True), # Best multi mode DCEP classification out of: `F/1O', `F/2O', `1O/2O', `1O/3O', `2O/3O', `F/1O/2O', `1O/2O/3O'
+])
 vari_classifier_class_definition_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
     StructField('classifier_name', StringType(), False), # Name of the classifier that is detailed in this entry
@@ -1330,6 +1355,154 @@ vari_rad_vel_statistics_schema = StructType([
     StructField('abbe_rv', FloatType(), True), # Abbe value for radial velocity transits
     StructField('iqr_rv', FloatType(), True), # Interquartile range for radial velocity transits
 ])
+vari_rotation_modulation_schema = StructType([
+    StructField('solution_id', LongType(), True), # Solution Identifier
+    StructField('source_id', LongType(), False), # Unique source identifier
+    StructField('num_segments', ByteType(), True), # Number of segments
+    StructField('segments_start_time', ArrayType(DoubleType()), True), # Times at which segments start
+    StructField('segments_end_time', ArrayType(DoubleType()), True), # Times at which segments end
+    StructField('segments_colour_mag_intercept', ArrayType(FloatType()), True), # Colour-Magnitude Intercept in segments
+    StructField('segments_colour_mag_intercept_error', ArrayType(FloatType()), True), # Colour-Magnitude Intercept uncertainty in segments
+    StructField('segments_colour_mag_slope', ArrayType(FloatType()), True), # Colour-Magnitude Slope in segments
+    StructField('segments_colour_mag_slope_error', ArrayType(FloatType()), True), # Colour-Magnitude Slope uncertainty in segments
+    StructField('segments_correlation_coefficient', ArrayType(FloatType()), True), # Correlation coefficient in segments
+    StructField('segments_correlation_significance', ArrayType(FloatType()), True), # Correlation coefficient significance in segments
+    StructField('num_outliers', ShortType(), True), # Number of outliers
+    StructField('outliers_time', ArrayType(DoubleType()), True), # Times at which outliers occurs
+    StructField('segments_rotation_period', ArrayType(DoubleType()), True), # Rotation period in segment
+    StructField('segments_rotation_period_error', ArrayType(FloatType()), True), # Rotation period uncertainty in segment
+    StructField('segments_rotation_period_fap', ArrayType(FloatType()), True), # FAP on rotation period in segment
+    StructField('best_rotation_period', DoubleType(), True), # Best rotation period
+    StructField('best_rotation_period_error', FloatType(), True), # Error on best rotation period 
+    StructField('segments_g_unspotted', ArrayType(FloatType()), True), # The unspotted G mags in segment
+    StructField('segments_g_unspotted_error', ArrayType(FloatType()), True), # The unspotted G mag uncertainties in segment
+    StructField('segments_bp_unspotted', ArrayType(FloatType()), True), # The unspotted BP mag in segment
+    StructField('segments_bp_unspotted_error', ArrayType(FloatType()), True), # The unspotted BP mag uncertainties in segment
+    StructField('segments_rp_unspotted', ArrayType(FloatType()), True), # The unspotted RP mag in segment
+    StructField('segments_rp_unspotted_error', ArrayType(FloatType()), True), # The unspotted RP mag uncertainties in segment
+    StructField('g_unspotted', FloatType(), True), # Unspotted G mag
+    StructField('g_unspotted_error', FloatType(), True), # Unspotted G mag uncertainty
+    StructField('bp_unspotted', FloatType(), True), # Unspotted BP mag
+    StructField('bp_unspotted_error', FloatType(), True), # Unspotted BP mag uncertainty
+    StructField('rp_unspotted', FloatType(), True), # Unspotted RP mag
+    StructField('rp_unspotted_error', FloatType(), True), # Unspotted RP mag uncertainty
+    StructField('segments_g_cos_term', ArrayType(FloatType()), True), # Coefficient of cosine term of linear fit in segment in the G band
+    StructField('segments_g_cos_term_error', ArrayType(FloatType()), True), # Errors on cosine terms in the G band
+    StructField('segments_g_sin_term', ArrayType(FloatType()), True), # Coefficient of sine term of linear fit in segment in the G band
+    StructField('segments_g_sin_term_error', ArrayType(FloatType()), True), # Errors on sine terms in the G band
+    StructField('segments_g_a0_term', ArrayType(FloatType()), True), # Constant term (A0) of linear fit in segment in the G band
+    StructField('segments_g_a0_term_error', ArrayType(FloatType()), True), # Errors on constant terms in the G band
+    StructField('segments_bp_cos_term', ArrayType(FloatType()), True), # Coefficient of cosine term of linear fit in segment in the BP band
+    StructField('segments_bp_cos_term_error', ArrayType(FloatType()), True), # Errors on cosine terms in the BP band
+    StructField('segments_bp_sin_term', ArrayType(FloatType()), True), # Coefficient of sine term of linear fit in segment in the BP band
+    StructField('segments_bp_sin_term_error', ArrayType(FloatType()), True), # Errors on sine terms in the BP band
+    StructField('segments_bp_a0_term', ArrayType(FloatType()), True), # Constant term (A0) of linear fit in segment in the BP band
+    StructField('segments_bp_a0_term_error', ArrayType(FloatType()), True), # Errors on constant terms in the BP band
+    StructField('segments_rp_cos_term', ArrayType(FloatType()), True), # Coefficient of cosine term of linear fit in segment in the RP band
+    StructField('segments_rp_cos_term_error', ArrayType(FloatType()), True), # Errors on cosine terms in the RP band
+    StructField('segments_rp_sin_term', ArrayType(FloatType()), True), # Coefficient of sine term of linear fit in segment in the RP band
+    StructField('segments_rp_sin_term_error', ArrayType(FloatType()), True), # Errors on sine terms in the RP band
+    StructField('segments_rp_a0_term', ArrayType(FloatType()), True), # Constant term (A0) of linear fit in segment in the RP band
+    StructField('segments_rp_a0_term_error', ArrayType(FloatType()), True), # Errors on constant terms in the RP band
+    StructField('segments_g_activity_index', ArrayType(FloatType()), True), # Activity Index in segment (computed in G band)
+    StructField('segments_g_activity_index_error', ArrayType(FloatType()), True), # error on Activity index in segment (computed in G band)
+    StructField('segments_bp_activity_index', ArrayType(FloatType()), True), # Activity Index in segment (computed in BP band)
+    StructField('segments_bp_activity_index_error', ArrayType(FloatType()), True), # error on Activity index in segment (computed in BP band)
+    StructField('segments_rp_activity_index', ArrayType(FloatType()), True), # Activity Index in segment (computed in RP band)
+    StructField('segments_rp_activity_index_error', ArrayType(FloatType()), True), # error on Activity index in segment (computed in RP band)
+    StructField('max_activity_index_g', FloatType(), True), # The maximum Activity Index in the G band
+    StructField('max_activity_index_g_error', FloatType(), True), # Error on maximum activity index in the G band
+    StructField('segments_bp_rp_corr_coeff', ArrayType(FloatType()), True), # Pearson coefficient between BP and RP in segment
+    StructField('segments_bp_rp_corr_signif', ArrayType(FloatType()), True), # Significance associated with Pearson coefficient
+    StructField('segments_bp_rp_intercept', ArrayType(FloatType()), True), # Intercept of regression fit of RP vs BP magnitudes in the segment
+    StructField('segments_bp_rp_intercept_error', ArrayType(FloatType()), True), # Error on intercept of regression fit of RP vs BP magnitudes in the segment
+    StructField('segments_bp_rp_slope', ArrayType(FloatType()), True), # Slope of regression fit of RP vs BP magnitudes in the segment
+    StructField('segments_bp_rp_slope_error', ArrayType(FloatType()), True), # Error on slope of regression fit of RP vs BP magnitudes in the segment
+    StructField('segments_model_reference_time', ArrayType(DoubleType()), True), # Time used as reference time for the period search procedure in the segment 
+    StructField('segments_g_chi_square', ArrayType(FloatType()), True), # Array of chisquares for linear models (G band)
+    StructField('segments_bp_chi_square', ArrayType(FloatType()), True), # Array of chisquares for linear models (BP band)
+    StructField('segments_rp_chi_square', ArrayType(FloatType()), True), # Array of chisquares for linear models (RP band)
+])
+vari_rrlyrae_schema = StructType([
+    StructField('solution_id', LongType(), True), # Solution Identifier
+    StructField('source_id', LongType(), False), # Unique source identifier
+    StructField('pf', DoubleType(), True), # Period corresponding to the fundamental pulsation mode in the G band time series
+    StructField('pf_error', FloatType(), True), # Uncertainty of the \texttt{pf} period
+    StructField('p1_o', DoubleType(), True), # Period corresponding to the first overtone pulsation mode in the G band time series
+    StructField('p1_o_error', FloatType(), True), # Uncertainty of the \texttt{p1O} period
+    StructField('epoch_g', DoubleType(), True), # Epoch of the maximum of the light curve in the G band
+    StructField('epoch_g_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochG}
+    StructField('epoch_bp', DoubleType(), True), # Epoch of the maximum of the light curve in the BP band
+    StructField('epoch_bp_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochBp}
+    StructField('epoch_rp', DoubleType(), True), # Epoch of the maximum of the light curve in the RP band
+    StructField('epoch_rp_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochRp}
+    StructField('epoch_rv', DoubleType(), True), # Epoch of the minimum of the radial velocity curve
+    StructField('epoch_rv_error', FloatType(), True), # Uncertainty on the epoch parameter \texttt{epochRv}
+    StructField('int_average_g', FloatType(), True), # Intensity-averaged magnitude in the G band
+    StructField('int_average_g_error', FloatType(), True), # Uncertainty on \texttt{intAverageG} parameter
+    StructField('int_average_bp', FloatType(), True), # Intensity-averaged magnitude in the BP band
+    StructField('int_average_bp_error', FloatType(), True), # Uncertainty on \texttt{intAverageBp} parameter
+    StructField('int_average_rp', FloatType(), True), # Intensity-averaged magnitude in the RP band
+    StructField('int_average_rp_error', FloatType(), True), # Uncertainty on \texttt{intAverageRp} parameter
+    StructField('average_rv', FloatType(), True), # Mean radial velocity
+    StructField('average_rv_error', FloatType(), True), # Uncertainty on \texttt{averageRv} parameter
+    StructField('peak_to_peak_g', FloatType(), True), # Peak-to-peak amplitude of the G band light curve
+    StructField('peak_to_peak_g_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakG} parameter
+    StructField('peak_to_peak_bp', FloatType(), True), # Peak-to-peak amplitude of the BP band light curve
+    StructField('peak_to_peak_bp_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakBp} parameter
+    StructField('peak_to_peak_rp', FloatType(), True), # Peak-to-peak amplitude of the RP band light curve
+    StructField('peak_to_peak_rp_error', FloatType(), True), # Uncertainty on the \texttt{peakToPeakRp} parameter
+    StructField('peak_to_peak_rv', DoubleType(), True), # Peak-to-peak amplitude of the radial velocity curve
+    StructField('peak_to_peak_rv_error', DoubleType(), True), # Uncertainty on the \texttt{peakToPeakRv} parameter
+    StructField('metallicity', FloatType(), True), # Metallicity of the star from the Fourier parameters of the light curve
+    StructField('metallicity_error', FloatType(), True), # Uncertainty of the \texttt{metallicity} parameter
+    StructField('r21_g', FloatType(), True), # Fourier decomposition parameter \texttt{r21G}: A2/A1 (for G band)
+    StructField('r21_g_error', FloatType(), True), # Uncertainty on the \texttt{r21G} parameter: A2/A1 (for G band)
+    StructField('r31_g', FloatType(), True), # Fourier decomposition parameter \texttt{r31G}: A3/A1 (for G band)
+    StructField('r31_g_error', FloatType(), True), # Uncertainty on the \texttt{r31G} parameter: A3/A1 (for G band)
+    StructField('phi21_g', FloatType(), True), # Fourier decomposition parameter \texttt{phi21G}: phi2 - 2*phi1 (for G band)
+    StructField('phi21_g_error', FloatType(), True), # Uncertainty on the \texttt{phi21G} parameter: phi2 - 2*phi1 (for G band)
+    StructField('phi31_g', FloatType(), True), # Fourier decomposition parameter \texttt{phi31G}: phi3 - 3*phi1 (for G band)
+    StructField('phi31_g_error', FloatType(), True), # Uncertainty on the \texttt{phi31G} parameter: phi3 - 3*phi1 (for G band)
+    StructField('num_clean_epochs_g', ShortType(), True), # Number of G FoV epochs used in the fitting algorithm
+    StructField('num_clean_epochs_bp', ShortType(), True), # Number of BP epochs used in the fitting algorithm
+    StructField('num_clean_epochs_rp', ShortType(), True), # Number of RP epochs used in the fitting algorithm
+    StructField('num_clean_epochs_rv', ShortType(), True), # Number of radial velocity epochs used in the fitting algorithm
+    StructField('zp_mag_g', FloatType(), True), # Zero point (mag) of the final model of the G band light curve
+    StructField('zp_mag_bp', FloatType(), True), # Zero point (mag) of the final model of the BP band light curve
+    StructField('zp_mag_rp', FloatType(), True), # Zero point (mag) of the final model of the RP band light curve
+    StructField('num_harmonics_for_p1_g', ByteType(), True), # Number of harmonics used to model the first periodicity of the G-band light curve
+    StructField('num_harmonics_for_p1_bp', ByteType(), True), # Number of harmonics used to model the first periodicity of the BP-band light curve
+    StructField('num_harmonics_for_p1_rp', ByteType(), True), # Number of harmonics used to model the first periodicity of the RP-band light curve
+    StructField('num_harmonics_for_p1_rv', ByteType(), True), # Number of harmonics used to model the first periodicity of the radial velocity curve
+    StructField('reference_time_g', DoubleType(), True), # Reference time of the Fourier modelled G-band light curve
+    StructField('reference_time_bp', DoubleType(), True), # Reference time of the Fourier modelled BP-band light curve
+    StructField('reference_time_rp', DoubleType(), True), # Reference time of the Fourier modelled RP-band light curve
+    StructField('reference_time_rv', DoubleType(), True), # Reference time of the Fourier modelled radial velocity curve
+    StructField('fund_freq1', DoubleType(), True), # First frequency of the non-linear Fourier modelling 
+    StructField('fund_freq1_error', FloatType(), True), # Error of the first frequency of the non-linear Fourier modelling
+    StructField('fund_freq2', DoubleType(), True), # Second frequency of the non-linear Fourier modelling in the G band
+    StructField('fund_freq2_error', FloatType(), True), # Error of the second frequency of the non-linear Fourier modelling in the G band
+    StructField('fund_freq1_harmonic_ampl_g', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_ampl_g_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_phase_g', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_phase_g_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the G band
+    StructField('fund_freq1_harmonic_ampl_bp', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_ampl_bp_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_phase_bp', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_phase_bp_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the BP band
+    StructField('fund_freq1_harmonic_ampl_rp', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_ampl_rp_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_phase_rp', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_phase_rp_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency in the RP band
+    StructField('fund_freq1_harmonic_ampl_rv', ArrayType(FloatType()), True), # Amplitudes of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_ampl_rv_error', ArrayType(FloatType()), True), # Errors of the amplitudes of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_phase_rv', ArrayType(FloatType()), True), # Phases of the Fourier model for the first frequency of the radial velocity curve
+    StructField('fund_freq1_harmonic_phase_rv_error', ArrayType(FloatType()), True), # Errors of the phases of the Fourier model for the first frequency of the radial velocity curve
+    StructField('best_classification', StringType(), True), # Best RR Lyrae classification estimate out of: {`RRc', `RRab', `RRd'}
+    StructField('g_absorption', FloatType(), True), # Interstellar absorption in the G-band
+    StructField('g_absorption_error', FloatType(), True), # Error on the interstellar absorption in the G-band
+])
 vari_short_timescale_schema = StructType([
     StructField('solution_id', LongType(), True), # Solution Identifier
     StructField('source_id', LongType(), False), # Unique source identifier
@@ -1340,6 +1513,76 @@ vari_short_timescale_schema = StructType([
     StructField('variogram_char_timescales', ArrayType(FloatType()), True), # Characteristic timescale(s) of variability
     StructField('variogram_values', ArrayType(DoubleType()), True), # Variogram values associated with the {\tt variogramCharTimescales}
     StructField('frequency', DoubleType(), True), # Frequency search result for either G CCD, G FoV, BP or RP photometry
+])
+vari_summary_schema = StructType([
+    StructField('solution_id', LongType(), True), # Solution Identifier
+    StructField('source_id', LongType(), False), # Unique source identifier
+    StructField('num_selected_g_fov', ShortType(), True), # Total number of G FOV transits selected for variability analysis
+    StructField('mean_obs_time_g_fov', DoubleType(), True), # Mean observation time for G FoV transits
+    StructField('time_duration_g_fov', FloatType(), True), # Time duration of the time series for G FoV transits
+    StructField('min_mag_g_fov', FloatType(), True), # Minimum G FoV magnitude
+    StructField('max_mag_g_fov', FloatType(), True), # Maximum G FoV magnitude
+    StructField('mean_mag_g_fov', FloatType(), True), # Mean G FoV magnitude
+    StructField('median_mag_g_fov', FloatType(), True), # Median G FoV magnitude
+    StructField('range_mag_g_fov', FloatType(), True), # Difference between the highest and lowest G FoV magnitudes
+    StructField('trimmed_range_mag_g_fov', FloatType(), True), # Trimmed difference between the highest and lowest G FoV magnitudes
+    StructField('std_dev_mag_g_fov', FloatType(), True), # Square root of the unweighted G FoV magnitude variance
+    StructField('skewness_mag_g_fov', FloatType(), True), # Standardized unweighted G FoV magnitude skewness
+    StructField('kurtosis_mag_g_fov', FloatType(), True), # Standardized unweighted G FoV magnitude kurtosis
+    StructField('mad_mag_g_fov', FloatType(), True), # Median Absolute Deviation (MAD) for G FoV transits
+    StructField('abbe_mag_g_fov', FloatType(), True), # Abbe value for G FoV transits
+    StructField('iqr_mag_g_fov', FloatType(), True), # Interquartile range for G FoV transits
+    StructField('stetson_mag_g_fov', FloatType(), True), # Stetson G FoV variability index
+    StructField('std_dev_over_rms_err_mag_g_fov', FloatType(), True), # Signal-to-Noise G FoV estimate
+    StructField('outlier_median_g_fov', FloatType(), True), # Greatest absolute deviation from the G FoV median normalized by the error
+    StructField('num_selected_bp', ShortType(), True), # Total number of BP observations selected for variability analysis
+    StructField('mean_obs_time_bp', DoubleType(), True), # Mean observation time for BP observations
+    StructField('time_duration_bp', FloatType(), True), # Time duration of the BP time series
+    StructField('min_mag_bp', FloatType(), True), # Minimum BP magnitude
+    StructField('max_mag_bp', FloatType(), True), # Maximum BP magnitude
+    StructField('mean_mag_bp', FloatType(), True), # Mean BP magnitude
+    StructField('median_mag_bp', FloatType(), True), # Median BP magnitude
+    StructField('range_mag_bp', FloatType(), True), # Difference between the highest and lowest BP magnitudes
+    StructField('trimmed_range_mag_bp', FloatType(), True), # Trimmed difference between the highest and lowest BP magnitudes
+    StructField('std_dev_mag_bp', FloatType(), True), # Square root of the unweighted BP magnitude variance
+    StructField('skewness_mag_bp', FloatType(), True), # Standardized unweighted BP magnitude skewness
+    StructField('kurtosis_mag_bp', FloatType(), True), # Standardized unweighted BP magnitude kurtosis
+    StructField('mad_mag_bp', FloatType(), True), # Median Absolute Deviation (MAD) for BP observations
+    StructField('abbe_mag_bp', FloatType(), True), # Abbe value for BP observations
+    StructField('iqr_mag_bp', FloatType(), True), # Interquartile BP magnitude range
+    StructField('stetson_mag_bp', FloatType(), True), # Stetson BP variability index
+    StructField('std_dev_over_rms_err_mag_bp', FloatType(), True), # Signal-to-Noise BP estimate
+    StructField('outlier_median_bp', FloatType(), True), # Greatest absolute deviation from the BP median normalized by the error
+    StructField('num_selected_rp', ShortType(), True), # Total number of RP observations selected for variability analysis
+    StructField('mean_obs_time_rp', DoubleType(), True), # Mean observation time for RP observations
+    StructField('time_duration_rp', FloatType(), True), # Time duration of the RP time series
+    StructField('min_mag_rp', FloatType(), True), # Minimum RP magnitude
+    StructField('max_mag_rp', FloatType(), True), # Maximum RP magnitude
+    StructField('mean_mag_rp', FloatType(), True), # Mean RP magnitude
+    StructField('median_mag_rp', FloatType(), True), # Median RP magnitude
+    StructField('range_mag_rp', FloatType(), True), # Difference between the highest and lowest RP magnitudes
+    StructField('trimmed_range_mag_rp', FloatType(), True), # Trimmed difference between the highest and lowest RP magnitudes
+    StructField('std_dev_mag_rp', FloatType(), True), # Square root of the unweighted RP magnitude variance
+    StructField('skewness_mag_rp', FloatType(), True), # Standardized unweighted RP magnitude skewness
+    StructField('kurtosis_mag_rp', FloatType(), True), # Standardized unweighted RP magnitude kurtosis
+    StructField('mad_mag_rp', FloatType(), True), # Median Absolute Deviation (MAD) for RP observations
+    StructField('abbe_mag_rp', FloatType(), True), # Abbe value for RP observations
+    StructField('iqr_mag_rp', FloatType(), True), # Interquartile RP magnitude range
+    StructField('stetson_mag_rp', FloatType(), True), # Stetson RP variability index
+    StructField('std_dev_over_rms_err_mag_rp', FloatType(), True), # Signal-to-Noise RP estimate
+    StructField('outlier_median_rp', FloatType(), True), # Greatest absolute deviation from the RP median normalized by the error
+    StructField('in_vari_classification_result', BooleanType(), True), # Source is present in \texttt{VariClassifierResult}
+    StructField('in_vari_rrlyrae', BooleanType(), True), # Source is present in \texttt{VariRrlyrae}
+    StructField('in_vari_cepheid', BooleanType(), True), # Source is present in \texttt{VariCepheid}
+    StructField('in_vari_planetary_transit', BooleanType(), True), # Source is present in \texttt{VariPlanetaryTransit}
+    StructField('in_vari_short_timescale', BooleanType(), True), # Source is present in \texttt{VariShortTimescale}
+    StructField('in_vari_long_period_variable', BooleanType(), True), # Source is present in \texttt{VariLongPeriodVariable}
+    StructField('in_vari_eclipsing_binary', BooleanType(), True), # Source is present in \texttt{VariEclipsingBinary}
+    StructField('in_vari_rotation_modulation', BooleanType(), True), # Source is present in \texttt{VariRotationModulation}
+    StructField('in_vari_ms_oscillator', BooleanType(), True), # Source is present in \texttt{VariMsOscillator}
+    StructField('in_vari_agn', BooleanType(), True), # Source is present in \texttt{VariAgn}
+    StructField('in_vari_microlensing', BooleanType(), True), # Source is present in \texttt{VariMicrolensing}
+    StructField('in_vari_compact_companion', BooleanType(), True), # Source is present in \texttt{VariCompactCompanion}
 ])
 xp_continuous_mean_spectrum_schema = StructType([
     StructField('source_id', LongType(), False), # Unique source identifier (unique within a particular Data Release)
@@ -1572,78 +1815,106 @@ from .gaiaedr3_pyspark_schema_structures import tmasspscxsc_best_neighbour_schem
 
 # dictionary of all tables: key is table name, value = tuple(tuple of schema(s), subfolder containing parquet files)
 table_dict = {
-    ##'vari_time_series_statistics',
-    ##'alerts_mixedin_sourceids',
+    ##'vari_time_series_statistics', now incorporated in vari_summary, so exclude (C9DM-541)
+    'alerts_mixedin_sourceids' :
+        ([alerts_mixedin_sourceids_schema], release_folder + '/GDR3_ALERTS_MIXEDIN_SOURCEIDS', 'alert_source_id'),
     'astrophysical_parameters' : 
-        ([astrophysical_parameters_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS'),
+        ([astrophysical_parameters_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS', 'source_id'),
     'astrophysical_parameters_supp' : 
-        ([astrophysical_parameters_supp_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP'),
-    #'epoch_photometry' : 
-    #    ([epoch_photometry_schema], release_folder + '/GDR3_EPOCH_PHOTOMETRY'),
+        ([astrophysical_parameters_supp_schema], release_folder + '/GDR3_ASTROPHYSICAL_PARAMETERS_SUPP', 'source_id'),
+    'epoch_photometry' : 
+        ([epoch_photometry_schema], release_folder + '/GDR3_EPOCH_PHOTOMETRY', 'source_id'),
     'gaia_source' : 
-        ([gaia_source_schema], release_folder + '/GDR3_GAIASOURCE'),
-    ##'galaxy_candidates',
-    ##'galaxy_catalogue_name',
-    #'mcmc_samples_gsp_phot' : 
-    #    ([mcmc_samples_gsp_phot_schema[], release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT'),
-    #'mcmc_samples_msc' : 
-    #    ([mcmc_samples_msc_schema[], release_folder + '/GDR3_MCMC_SAMPLES_MSC'),
-    ##'nss_acceleration_astro',
-    ##'nss_non_linear_spectro',
-    ##'nss_two_body_orbit',
-    ##'nss_vim_fl',
-    #'oa_neuron_information' : 
-    #    ([oa_neuron_information_schema], release_folder + '/GDR3_OA_NEURON_INFORMATION'),
-    #'oa_neuron_xp_spectra' : 
-    #    ([oa_neuron_xp_spectra_schema], release_folder + '/GDR3_OA_NEURON_XP_SPECTRA'),
-    ##'qso_candidates',
-    ##'qso_catalogue_name',
+        ([gaia_source_schema], release_folder + '/GDR3_GAIASOURCE', 'source_id'),
+    'galaxy_candidates' :
+        ([galaxy_candidates_schema], release_folder + '/GDR3_GALAXY_CANDIDATES', 'source_id'),
+    'galaxy_catalogue_name' :
+        ([galaxy_catalogue_name_schema], release_folder + '/GDR3_GALAXY_CATALOGUE_NAME', 'source_id'),
+    'mcmc_samples_gsp_phot' : 
+        ([mcmc_samples_gsp_phot_schema], release_folder + '/GDR3_MCMC_SAMPLES_GSP_PHOT', 'source_id'),
+    'mcmc_samples_msc' : 
+        ([mcmc_samples_msc_schema], release_folder + '/GDR3_MCMC_SAMPLES_MSC', 'source_id'),
+    'nss_acceleration_astro' :
+        ([nss_acceleration_astro_schema], release_folder + '/GDR3_NSS_ACCELERATION_ASTRO', 'source_id'),
+    'nss_non_linear_spectro' :
+        ([nss_non_linear_spectro_schema], release_folder + '/GDR3_NSS_NON_LINEAR_SPECTRO', 'source_id'),
+    'nss_two_body_orbit' :
+        ([nss_two_body_orbit_schema], release_folder + '/GDR3_NSS_TWO_BODY_ORBIT', 'source_id'),
+    'nss_vim_fl' :
+        ([nss_vim_fl_schema], release_folder + '/GDR3_NSS_VIM_FL', 'source_id'),
+    'oa_neuron_information' : 
+        ([oa_neuron_information_schema], release_folder + '/GDR3_OA_NEURON_INFORMATION', 'som_id'),
+    'oa_neuron_xp_spectra' : 
+        ([oa_neuron_xp_spectra_schema], release_folder + '/GDR3_OA_NEURON_XP_SPECTRA', 'neuron_id'),
+    'qso_candidates' :
+        ([qso_candidates_schema], release_folder + '/GDR3_QSO_CANDIDATES', 'source_id'),
+    'qso_catalogue_name' :
+        ([qso_catalogue_name_schema], release_folder + '/GDR3_QSO_CATALOGUE_NAME', 'source_id'),
     'rvs_mean_spectrum' : 
-        ([rvs_mean_spectrum_schema], release_folder + '/GDR3_RVS_MEAN_SPECTRUM'),
-    ##'science_alerts',
-    ##'sso_observation',
-    ##'sso_reflectance_spectrum',
-    ##'sso_source',
-    #'total_galactic_extinction_map' : 
-    #    ([total_galactic_extinction_map_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP'),
-    #'total_galactic_extinction_map_opt' : 
-    #    ([total_galactic_extinction_map_opt_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT'),
-    ##'vari_agn',
-    ##'vari_classifier_class_definition',
-    ##'vari_classifier_definition',
-    ##'vari_classifier_result',
-    ##'vari_compact_companion',
-    ##'vari_eclipsing_binary',
-    ##'vari_epoch_radial_velocity',
-    ##'vari_long_period_variable',
-    ##'vari_microlensing',
-    ##'vari_ms_oscillator',
-    ##'vari_planetary_transit',
-    ##'vari_rad_vel_statistics',
-    ##'vari_short_timescale',
+        ([rvs_mean_spectrum_schema], release_folder + '/GDR3_RVS_MEAN_SPECTRUM', 'source_id'),
+    'science_alerts' :
+        ([science_alerts_schema], release_folder + '/GDR3_SCIENCE_ALERTS', 'source_id'),
+    'sso_observation' :
+        ([sso_observation_schema], release_folder + '/GDR3_SSO_OBSERVATION', 'source_id'),
+    'sso_reflectance_spectrum' :
+        ([sso_reflectance_spectrum_schema], release_folder + '/GDR3_SSO_REFLECTANCE_SPECTRUM', 'source_id'),
+    'sso_source' :
+        ([sso_source_schema], release_folder + '/GDR3_SSO_SOURCE', 'source_id'),
+    'total_galactic_extinction_map' : 
+        ([total_galactic_extinction_map_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP', 'healpix_id'),
+    'total_galactic_extinction_map_opt' : 
+        ([total_galactic_extinction_map_opt_schema], release_folder + '/GDR3_TOTAL_GALACTIC_EXTINCTION_MAP_OPT', 'healpix_id'),
+    'vari_agn' :
+        ([vari_agn_schema], release_folder + '/GDR3_VARI_AGN', 'source_id'),
+    'vari_cepheid' :
+        ([vari_cepheid_schema], release_folder + '/GDR3_VARI_CEPHEID', 'source_id'),
+    'vari_classifier_class_definition' :
+        ([vari_classifier_class_definition_schema], release_folder + '/GDR3_VARI_CLASSIFIER_CLASS_DEFINITION', 'classifier_name'),
+    'vari_classifier_definition' :
+        ([vari_classifier_definition_schema], release_folder + '/GDR3_VARI_CLASSIFIER_DEFINITION', 'classifier_name'),
+    'vari_classifier_result' :
+        ([vari_classifier_result_schema], release_folder + '/GDR3_VARI_CLASSIFIER_RESULT', 'source_id'),
+    'vari_compact_companion' :
+        ([vari_compact_companion_schema], release_folder + '/GDR3_VARI_COMPACT_COMPANION', 'source_id'),
+    'vari_eclipsing_binary' :
+        ([vari_eclipsing_binary_schema], release_folder + '/GDR3_VARI_ECLIPSING_BINARY', 'source_id'),
+    'vari_epoch_radial_velocity' :
+        ([vari_epoch_radial_velocity_schema], release_folder + '/GDR3_VARI_EPOCH_RADIAL_VELOCITY', 'transit_id'),
+    'vari_long_period_variable' :
+        ([vari_long_period_variable_schema], release_folder + '/GDR3_VARI_LONG_PERIOD_VARIABLE', 'source_id'),
+    'vari_microlensing' :
+        ([vari_microlensing_schema], release_folder + '/GDR3_VARI_MICROLENSING', 'source_id'),
+    'vari_ms_oscillator' :
+        ([vari_ms_oscillator_schema], release_folder + '/GDR3_VARI_MS_OSCILLATOR', 'source_id'),
+    'vari_planetary_transit' :
+        ([vari_planetary_transit_schema], release_folder + '/GDR3_VARI_PLANETARY_TRANSIT', 'source_id'),
+    'vari_rad_vel_statistics' :
+        ([vari_rad_vel_statistics_schema], release_folder + '/GDR3_VARI_RAD_VEL_STATISTICS', 'source_id'),
+    'vari_rotation_modulation' :
+        ([vari_rotation_modulation_schema], release_folder + '/GDR3_VARI_ROTATION_MODULATION', 'source_id'),
+    'vari_rrlyrae' :
+        ([vari_rrlyrae_schema], release_folder + '/GDR3_VARI_RRLYRAE', 'source_id'),
+    'vari_short_timescale' :
+        ([vari_short_timescale_schema], release_folder + '/GDR3_VARI_SHORT_TIMESCALE', 'source_id'),
+    'vari_summary' :
+        ([vari_summary_schema], release_folder + '/GDR3_VARI_SUMMARY', 'source_id'),    
     'xp_continuous_mean_spectrum' : 
-        ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM'),
+        ([xp_continuous_mean_spectrum_schema], release_folder + '/GDR3_XP_CONTINUOUS_MEAN_SPECTRUM', 'source_id'),
     'xp_sampled_mean_spectrum' : 
-        ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM'),
+        ([xp_sampled_mean_spectrum_schema], release_folder + '/GDR3_XP_SAMPLED_MEAN_SPECTRUM', 'source_id'),
     'xp_summary' : 
-        ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY'),
-    ##'commanded_scan_law',
+        ([xp_summary_schema], release_folder + '/GDR3_XP_SUMMARY', 'source_id'),
+    ##'commanded_scan_law', These should be put in the EDR3 schema if required, so leave out here.
     ##'agn_cross_id',
     ##'frame_rotator_source',
     ##'gaia_crf3_xm',
-    ##'gaia_source_simulation' : 
-    ##    ([gaia_source_simulation_schema], release_folder + '/GDR3_GAIA_SOURCE_SIMULATION'),
-    ##'gaia_universe_model' : 
-    ##    ([gaia_universe_model_schema], release_folder + '/GDR3_UNIVERSE_MODEL'),
+    ##'gaia_source_simulation',
+    ##'gaia_universe_model',
     'gaia_source_tmasspsc_best_neighbours' : 
-        ([tmasspscxsc_best_neighbour_schema, twomass_psc_schema], release_folder + '/GDR3_2MASSPSC_BEST_NEIGHBOURS'),
+        ([tmasspscxsc_best_neighbour_schema, twomass_psc_schema], release_folder + '/GDR3_2MASSPSC_BEST_NEIGHBOURS', 'source_id'),
     'gaia_source_allwise_best_neighbours' : 
-        ([allwise_best_neighbour_schema, allwise_sc_schema], release_folder + '/GDR3_ALLWISE_BEST_NEIGHBOURS'),
+        ([allwise_best_neighbour_schema, allwise_sc_schema], release_folder + '/GDR3_ALLWISE_BEST_NEIGHBOURS', 'source_id'),
     'gaia_source_ps1_best_neighbours' : 
-        ([panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema], release_folder + '/GDR3_PS1_BEST_NEIGHBOURS')
+        ([panstarrs1_best_neighbour_schema, panstarrs_dr1_otmo_schema], release_folder + '/GDR3_PS1_BEST_NEIGHBOURS', 'source_id')
 }
-# ... small tables doubly commented out;
-# tables that should be ingested but that have not been ingested yet owing to ingest issues are singly commented; 
-# TODO decide later what to include.
-
 

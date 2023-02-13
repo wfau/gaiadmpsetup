@@ -45,7 +45,8 @@ class GaiaDMPSetup:
             for table_key in edr3.table_dict.keys():
                 folder_path = edr3.table_dict[table_key][1]
                 schemas = edr3.table_dict[table_key][0]
-                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas)
+                pk = edr3.table_dict[table_key][2]
+                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas, cluster_key = pk, sort_key = pk)
                 
         # check DR3
         database = "gaiadr3"
@@ -59,7 +60,8 @@ class GaiaDMPSetup:
             for table_key in dr3.table_dict.keys():
                 folder_path = dr3.table_dict[table_key][1]
                 schemas = dr3.table_dict[table_key][0]
-                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas)
+                pk = dr3.table_dict[table_key][2]
+                reattachParquetFileResourceToSparkContext(table_key, data_store + folder_path, schemas, cluster_key = pk, sort_key = pk)
         
         # finally always leave the PySpark SQL context in the most recent Gaia DR3 database
         spark.sql("use gaiadr3")
