@@ -18,7 +18,7 @@ setup(
     keywords = "gaiadmpsetup",
     url = "https://github.com/wfau/aglais",
     include_package_data = True,
-    packages=['gaiadmpsetup'],
+    packages=['gaiadmpsetup', 'gaiadmpconf'],
     long_description="README",
     long_description_content_type='text/markdown',
     classifiers=[

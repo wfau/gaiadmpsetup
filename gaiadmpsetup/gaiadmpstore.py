@@ -9,9 +9,6 @@ NUM_BUCKETS = 2048
 
 spark = SparkSession.builder.getOrCreate()
 
-# root data store path: TODO change this to the official one when established.
-data_store = os.getenv('GAIA_DMP_STORE', "file:////data/gaia/")
-
 # default key by which to bucket and sort: Gaia catalogue source UID 
 default_key = "source_id"
 
