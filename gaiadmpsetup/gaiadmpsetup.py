@@ -59,7 +59,7 @@ class GaiaDMPSetup:
                 
             return check
 
-        def location_changed(expected_location, database):
+        def location_changed(expected_location, schema):
             check = False
             for table_key in schema.table_dict.keys():
                 location = spark.sql(f"desc formatted {table_key}").filter("col_name=='Location'").collect()[0].data_type
@@ -71,7 +71,7 @@ class GaiaDMPSetup:
             return check
 
         for database, schema in GaiaDMPSetup.databases.items():
-            if not tablesExist(schema.table_dict.keys(), database) or location_changed(data_store, database):
+            if not tablesExist(schema.table_dict.keys(), database) or location_changed(data_store, schema):
 
                 # create the database and switch the current SQL database context to it (from default)
                 spark.sql("create database if not exists " + database)
