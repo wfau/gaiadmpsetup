@@ -2,7 +2,6 @@ from pyspark.sql.types import *
 from pyspark.sql import functions as f
 from pyspark.sql import *
 
-import os
 
 # number of buckets for our platform
 NUM_BUCKETS = 2048
