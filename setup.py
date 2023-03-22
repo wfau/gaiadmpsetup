@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name = "gaiadmpsetup",
-    version = "0.1.1",
+    version = "0.1.2",
     author = "Stelios Voutsinas",
     author_email = "stv@roe.ac.uk",
     description = ("A setup script for Gaia DMP"),
