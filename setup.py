@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name = "gaiadmpsetup",
-    version = "0.1.1",
+    version = "0.1.2",
     author = "Stelios Voutsinas",
     author_email = "stv@roe.ac.uk",
     description = ("A setup script for Gaia DMP"),
@@ -18,7 +18,7 @@ setup(
     keywords = "gaiadmpsetup",
     url = "https://github.com/wfau/aglais",
     include_package_data = True,
-    packages=['gaiadmpsetup'],
+    packages=['gaiadmpsetup', 'gaiadmpconf'],
     long_description="README",
     long_description_content_type='text/markdown',
     classifiers=[
